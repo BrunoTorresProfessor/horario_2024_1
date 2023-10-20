@@ -42,7 +42,9 @@ public class SecSecurityConfig {
 	 
 	    http.authorizeHttpRequests(
 	            auth -> auth.requestMatchers("/signin", "/signup").permitAll()
-	            .requestMatchers("/principal").hasAuthority("USER")	          
+	            .requestMatchers("/").hasAnyRole("USER","ADMIN")	
+	            .requestMatchers("/").hasRole("USER")
+	            .requestMatchers("/admin/**").hasRole("ADMIN")	
 	            .anyRequest().authenticated()
 	           )
 	            .formLogin(formLogin -> formLogin	           
