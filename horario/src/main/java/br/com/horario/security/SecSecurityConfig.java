@@ -1,7 +1,9 @@
 package br.com.horario.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -11,26 +13,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+
+
 @Configuration
 @EnableWebSecurity
 public class SecSecurityConfig {
 	
-	@Bean
-    public InMemoryUserDetailsManager userDetailsService() {
-		UserDetails user1 = User.withUsername("user1")
-	            .password(passwordEncoder().encode("user1Pass"))
-	            .roles("USER")
-	            .build();
-	        UserDetails user2 = User.withUsername("user2")
-	            .password(passwordEncoder().encode("user2Pass"))
-	            .roles("USER")
-	            .build();
-	        UserDetails admin = User.withUsername("admin")
-	            .password(passwordEncoder().encode("adminPass"))
-	            .roles("ADMIN")
-	            .build();
-	        return new InMemoryUserDetailsManager(user1, user2, admin);
-    }
+	@Autowired	
+	private UserDetailServiceImpl userDetailServiceImpl;
 	
 	@Bean 
 	public PasswordEncoder passwordEncoder() { 
@@ -42,13 +32,12 @@ public class SecSecurityConfig {
 	 
 	    http.authorizeHttpRequests(
 	            auth -> auth.requestMatchers("/signin", "/signup").permitAll()
-	            .requestMatchers("/").hasAnyRole("USER","ADMIN")	
-	            .requestMatchers("/").hasRole("USER")
-	            .requestMatchers("/admin/**").hasRole("ADMIN")	
+	            .requestMatchers("/").hasAnyRole("administrador")		         
+	            .requestMatchers("/admin/**").hasRole("administrador")	
 	            .anyRequest().authenticated()
 	           )
-	            .formLogin(formLogin -> formLogin	           
-	                    .defaultSuccessUrl("/", true)
+	            .formLogin(formLogin -> formLogin	            		
+	                    .defaultSuccessUrl("/principal", true)
 	                    .permitAll()
 	            )
 	            .rememberMe(rememberMe -> rememberMe.key("AbcdEfghIjkl..."))
@@ -56,6 +45,18 @@ public class SecSecurityConfig {
 	 
 	 
 	    return http.build();
+	}
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth)
+	  throws Exception {
+		//Serve de exemplo para gerar um senha criptografada
+		BCryptPasswordEncoder b = new BCryptPasswordEncoder();
+		System.out.println(b.encode("123456"));
+		//Cripitografa a senha para salvar no banco de dados
+		auth.userDetailsService(userDetailServiceImpl).passwordEncoder(new BCryptPasswordEncoder());
+	 
+	    
+	  
 	}
 
 }

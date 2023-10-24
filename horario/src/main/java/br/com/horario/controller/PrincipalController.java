@@ -11,7 +11,7 @@ public class PrincipalController {
 	{
 		return "principal";
 	}
-	@GetMapping("/")
+	@GetMapping({"/"})
 	public String home()
 	{
 		return "principal";
