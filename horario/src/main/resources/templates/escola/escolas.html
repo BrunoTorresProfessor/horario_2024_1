@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="layout/cabecalho">
+<meta charset="ISO-8859-1">
+<title>Eu vou ser um analista baby</title>
+</head>
+<body>
+<!-- Importa o menu padrao do sistema -->
+<div th:insert="layout/menu"></div>
+
+<div class="container">	
+	<form class="form-horizontal"  method="POST" style="margin: 10px">
+	<table class="table table-sm table-striped table-hover table-bordered">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Nome</th>
+						
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="escola : ${escolas}" >
+								<td th:text="${escola.Id}"></td>
+								<td th:text="${escola.Nome}"></td>		
+																
+							</tr>							
+						</tbody>
+	</table>
+  </form>
+
+</div>
+
+<!-- Importa o rodape padr�o do sistema -->
+<div th:insert="layout/rodape"></div>
+</body>
+</html>
