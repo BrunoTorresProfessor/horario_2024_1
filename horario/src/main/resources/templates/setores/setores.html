@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="layout/cabecalho">
 <meta charset="ISO-8859-1">
-<title>Escolas</title>
+<title>Setores</title>
 </head>
 <body>
 <!-- Importa o menu padrao do sistema -->
@@ -20,10 +20,10 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="escola : ${escolas}" >
-								<td th:text="${escola.Id}"></td>
-								<td th:text="${escola.Nome}"></td>		
-							    <td><a class="btn btn-sm btn-success" th:href="@{setores/{id}(id=${escola.id})}" >Setores</a></td> 							
+							<tr th:each="setor : ${setores}" >
+								<td th:text="${setor.Id}"></td>
+								<td th:text="${setor.Nome}"></td>		
+							    <td><a class="btn btn-sm btn-success" th:href="@{excluir/{id}(id=${setor.id})}" >Excluir</a></td> 							
 							</tr>							
 						</tbody>
 	</table>

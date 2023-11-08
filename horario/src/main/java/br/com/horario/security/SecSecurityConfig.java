@@ -34,6 +34,7 @@ public class SecSecurityConfig {
 	            auth -> auth.requestMatchers("/signin", "/signup").permitAll()
 	            .requestMatchers("/").hasAnyRole("administrador")		         
 	            .requestMatchers("/admin/**").hasRole("administrador")	
+	
 	            .anyRequest().authenticated()
 	           )
 	            .formLogin(formLogin -> formLogin	            		
