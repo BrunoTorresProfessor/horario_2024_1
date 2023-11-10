@@ -10,6 +10,8 @@
 
 <div class="container">	
 	<form class="form-horizontal"  method="POST" style="margin: 10px">
+	<div class="alert alert-success" th:text="${mensagem}" th:if="${not #strings.isEmpty(mensagem)}"></div>
+	<h2>Escolas</h2>
 	<table class="table table-sm table-striped table-hover table-bordered">
 						<thead>
 							<tr>

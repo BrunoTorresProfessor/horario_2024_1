@@ -9,7 +9,23 @@
 <div th:insert="layout/menu"></div>
 
 <div class="container">	
-	<form class="form-horizontal"  method="POST" style="margin: 10px">
+ <form name="cadastrar_setor" class="form-horizontal"  method="POST" style="margin: 10px" th:action="@{/setores/cadastrar_setor}" th:object="${setorModel}">
+	<input class="form-control" type="hidden" maxlength="50" name="idEscola" th:value="${idEscola}" />
+	<h2>Setores</h2>
+	<div class="card">
+	  <div class="card-body">
+		
+	    <h5 class="card-title">Cadastrar setor</h5>
+	   
+	    <h6>Nome</h6>
+	    <input type="text" aria-label="Nome" name="nome" id="nome" class="form-control" required>
+	    <br>
+	    <button type="submit" class="btn btn-success form-control">Cadastrar</button>
+		
+	  </div>
+	</div>
+	<br>
+	<h5 class="card-title">Setores cadastrados</h5>
 	<table class="table table-sm table-striped table-hover table-bordered">
 						<thead>
 							<tr>

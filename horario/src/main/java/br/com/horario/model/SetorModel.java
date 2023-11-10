@@ -17,8 +17,8 @@ public class SetorModel implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_setor")
-	private Long id;
-	
+	private Long id;	
+
 	@Column(name = "nome")
 	private String nome;
 	
