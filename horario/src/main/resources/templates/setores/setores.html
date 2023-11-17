@@ -31,7 +31,8 @@
 							<tr>
 								<th>ID</th>
 								<th>Nome</th>
-								<th>Setores</th>
+								<th class="col-1">Setores</th>
+								<th class="col-1"></th>
 						
 							</tr>
 						</thead>
@@ -39,7 +40,8 @@
 							<tr th:each="setor : ${setores}" >
 								<td th:text="${setor.Id}"></td>
 								<td th:text="${setor.Nome}"></td>		
-							    <td><a class="btn btn-sm btn-success" th:href="@{excluir/{id}(id=${setor.id})}" >Excluir</a></td> 							
+							    <td><a class="btn btn-sm btn-warning" th:href="@{alterar/{id}(id=${setor.id})}" >Alterar</a></td> 							
+							    <td><a class="btn btn-sm btn-danger" th:href="@{excluir/{id}(id=${setor.id})}" >Excluir</a></td>
 							</tr>							
 						</tbody>
 	</table>
