@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{layout/cabecalho}">
+
+<meta charset="ISO-8859-1">
+<title>Página de Docentes</title>
+</head>
+<body>
+<!-- Importa o menu padrao do sistema -->
+<div th:insert="~{layout/menu}"></div>
+
+
+<form name="salvar_docente" class="form-horizontal"  method="POST" th:action="@{/salvar_docente}" th:object="${docenteEntity}">
+<div class="container">	
+<h2>Docente</h2>
+
+
+<div class="container">
+<div class="mb-3">
+  <label for="nome" class="form-label">Nome</label>
+<input type="text" class="form-control" id="nome">
+</div>
+<div class="mb-3">
+  <label for="sobrenome" class="form-label">Sobrenome</label>
+<input type="text" class="form-control" id="nome">
+</div>
+<div class="mb-3">
+<label for="setor" class="form-label">Setor</label>
+<select class="form-select" aria-label="Selecione o setor" >
+   <option selected>Selecione o setor</option>
+   <option th:each="setor : ${setores}" th:text="${setor.nome}" th:value="${setor.idSetor}">
+</select>
+</div>
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Email</label>
+  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="chinforinfolo@faetec.br">
+</div>
+<div class="mb-3">
+    <button type="submit" class="btn btn-success form-control">Salvar</button>
+</div>     
+</div>
+</form>
+
+
+
+</body>
+	<!-- Importa o rodape padrao do sistema -->
+	<div th:insert="~{layout/rodape}"></div>
+</html>
