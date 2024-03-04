@@ -21,11 +21,19 @@ public class DocenteServiceImpl implements DocenteService {
 		
 		if (docenteEntity.getNome() == null) {
 			this.mensagem = "Digite o nome do docente.";		
-			throw new Exception("Digite o nome do docente.");				
+			throw new Exception("Prencha o nome do docente.");				
+		}
+		else if (docenteEntity.getSobrenome() == null) {
+			this.mensagem = "Preencha o sobrenome do docente.";		
+			throw new Exception("Prencha o nome do docente.");				
+		}
+		else if (docenteEntity.getEmail() == null) {
+			this.mensagem = "Preencha o email";		
+			throw new Exception("Prencha o nome do docente.");				
 		}
 		else
 		{
-			docenteRepository.save(docenteEntity);
+			docenteRepository.saveAndFlush(docenteEntity);
 		}
 		
 		return mensagem;
@@ -36,6 +44,14 @@ public class DocenteServiceImpl implements DocenteService {
 		
 		return docenteRepository.findAll();
 	}
+
+	@Override
+	public DocenteEntity getOneByIdDocente(Long idDocente) throws Exception {
+		
+		
+		return docenteRepository.getOneByIdDocente(idDocente);
+	}
+
 
 
 }

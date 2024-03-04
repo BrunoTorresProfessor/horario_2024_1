@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -20,32 +21,41 @@ public class DocenteController {
 	private DocenteService docenteService;
 	
 	@Autowired
-	private SetorService setorService;
-	
-	private String mensagem;
+	private SetorService setorService;	
 	
 	@GetMapping("/docente") //nome que eu quiser colocar 
 	public String docente(ModelMap model)
 	{
 		model.addAttribute("setores",setorService.findAll());
+		model.addAttribute("docentes",docenteService.findAll());
 		return "docente"; //caminho real do arquivo
 	}
 	
 
 	@PostMapping("/salvar_docente")
-    public ModelAndView Save(
+    public ModelAndView save(
+    		ModelMap model,
     		@ModelAttribute("docenteEntity") DocenteEntity docenteEntity,
     		RedirectAttributes atributes) throws Exception 
 	{ 			
 				
-				ModelAndView mv = new ModelAndView("redirect:/docente");
-				mensagem = docenteService.save(docenteEntity);
-				atributes.addFlashAttribute("mensagem", mensagem);		
-				
-				System.out.println("Entrei");
+				ModelAndView mv = new ModelAndView("redirect:/docente");	
+				model.addAttribute("mensagem","teste");
+				atributes.addFlashAttribute("mensagem", docenteService.save(docenteEntity));
 				
 				return mv;
 		
+	}
+	@GetMapping("/alterar_docente/{idDocente}")
+	public ModelAndView update(ModelMap model,@PathVariable("idDocente") Long idDocente) throws Exception
+	{
+		ModelAndView mv = new ModelAndView("alterar_docente");
+		model.addAttribute("setores",setorService.findAll());
+		model.addAttribute("idDocente",idDocente);		
+		model.addAttribute("docente", docenteService.getOneByIdDocente(idDocente));
+		
+		return mv;
+	
 	}
 
 }

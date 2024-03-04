@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,7 +18,7 @@ public class DocenteEntity implements Serializable {
 	private static final long serialVersionUID = 1L;	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idDocente")
+	@Column(name = "id_docente")
 	private Long idDocente;
 	
 	@Column(name = "nome")
@@ -24,12 +26,24 @@ public class DocenteEntity implements Serializable {
 	
 	@Column(name = "sobrenome")
 	private String sobrenome;	
+	
+	@Column(name = "cpf")
+	private String cpf;	
 
 	@Column(name = "email")
 	private String email;
-	
-	@Column(name = "idSetor")
-	private Long idSetor;
+
+	@OneToOne()
+    @JoinColumn(name = "setor_id", referencedColumnName = "id_setor")
+    private SetorEntity setor;
+
+	public SetorEntity getSetor() {
+		return setor;
+	}
+
+	public void setSetor(SetorEntity setor) {
+		this.setor = setor;
+	}
 
 	public Long getIdDocente() {
 		return idDocente;
@@ -63,13 +77,17 @@ public class DocenteEntity implements Serializable {
 		this.email = email;
 	}
 
-	public Long getIdSetor() {
-		return idSetor;
+	public String getCpf() {
+		return cpf;
 	}
 
-	public void setIdSetor(Long idSetor) {
-		this.idSetor = idSetor;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
+	
+
+
+
 
 
 	

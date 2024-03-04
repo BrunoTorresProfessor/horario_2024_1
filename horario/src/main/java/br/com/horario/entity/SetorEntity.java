@@ -16,7 +16,7 @@ public class SetorEntity implements Serializable {
 	private static final long serialVersionUID = 1L;	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idSetor")
+	@Column(name = "id_setor")
 	private Long idSetor;
 	
 	@Column(name = "nome")
@@ -37,6 +37,8 @@ public class SetorEntity implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	
 	
 	
 

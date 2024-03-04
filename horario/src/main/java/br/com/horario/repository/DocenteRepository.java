@@ -7,5 +7,7 @@ import br.com.horario.entity.DocenteEntity;
 
 @Repository
 public interface DocenteRepository extends JpaRepository<DocenteEntity, Long> {
+	
+	DocenteEntity getOneByIdDocente(Long idDocente);
 
 }
