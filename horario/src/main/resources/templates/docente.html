@@ -14,9 +14,10 @@
 <div class="container">	
 <h2>Docente</h2>
 
-
+<!--Começa cadastro de docentes -->
 <div class="container">
 <div class="alert alert-success" th:text="${mensagem}" th:if="${not #strings.isEmpty(mensagem)}"></div>
+
 	
 <div class="mb-3">
   <label for="nome" class="form-label">Nome</label>
@@ -46,6 +47,7 @@
     <button type="submit" class="btn btn-success form-control">Salvar</button>
 </div>     
 </div>
+<!--Termina cadastro de docentes -->
 
 <!--Começa lista de docentes -->
 <br>
@@ -58,6 +60,7 @@
 								<th>Setor</th>
 								<th>Email</th>
 								<th class="col-1"></th>
+									<th class="col-1"></th>
 								
 						
 							</tr>
@@ -65,11 +68,19 @@
 						<tbody>
 							<tr th:each="docente : ${docentes}" >
 								<td th:text="${docente.IdDocente}"></td>
-								<td th:text="${docente.Nome + docente.sobrenome}"></td>	
+								<td th:text="${docente.Nome + ' ' + docente.sobrenome}"></td>	
 								<td th:text="${docente.setor.nome}"></td>	
 								<td th:text="${docente.email}"></td>	
-							    <td><a class="btn btn-sm btn-warning" th:href="@{alterar_docente/{idDocente}(idDocente=${docente.IdDocente})}" >Alterar</a></td> 							
-							  
+							    <td><a class="btn btn-sm btn-warning" th:href="@{alterar_docente/{idDocente}(idDocente=${docente.IdDocente})}" >Alterar</a></td> 	
+							    <!--Começa Exclusão-->
+							    <td>
+									<a class="delete btn btn-sm btn-danger" 
+									th:href="@{excluir_docente/{idDocente}(idDocente=${docente.IdDocente})}" 
+									onclick="if (confirm('Deseja realmente excluir o Docente?')){return true;}else{event.stopPropagation(); event.preventDefault();};">
+										Excluir
+									</a>
+								</td>						
+							   <!--Termina Exclusão-->
 							</tr>							
 						</tbody>
 </table>

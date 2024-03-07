@@ -23,6 +23,7 @@ public class DocenteController {
 	@Autowired
 	private SetorService setorService;	
 	
+		
 	@GetMapping("/docente") //nome que eu quiser colocar 
 	public String docente(ModelMap model)
 	{
@@ -39,10 +40,8 @@ public class DocenteController {
     		RedirectAttributes atributes) throws Exception 
 	{ 			
 				
-				ModelAndView mv = new ModelAndView("redirect:/docente");	
-				model.addAttribute("mensagem","teste");
-				atributes.addFlashAttribute("mensagem", docenteService.save(docenteEntity));
-				
+				ModelAndView mv = new ModelAndView("redirect:/docente");			
+				atributes.addFlashAttribute("mensagem",docenteService.save(docenteEntity));
 				return mv;
 		
 	}
@@ -57,5 +56,20 @@ public class DocenteController {
 		return mv;
 	
 	}
+	//Começa Exclusão
+	@GetMapping("/excluir_docente/{idDocente}")
+	public ModelAndView delete(ModelMap model,@PathVariable("idDocente") Long idDocente,RedirectAttributes atributes) throws Exception
+	{
+		ModelAndView mv = new ModelAndView("docente");
+		model.addAttribute("setores",setorService.findAll());		
+		model.addAttribute("mensagem", docenteService.deleteById(idDocente));
+		//após a exclusão de um docente eu preciso atualizar a listagem na página
+		//por isso eu realizo uma nova consulta findall
+		model.addAttribute("docentes",docenteService.findAll());
+		
+		return mv;
+	
+	}
+	//Termina Exclusão
 
 }
