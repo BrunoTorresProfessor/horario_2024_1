@@ -27,6 +27,9 @@ public class DocenteEntity implements Serializable {
 	@Column(name = "sobrenome")
 	private String sobrenome;	
 	
+	@Column(name = "tempo")
+	private int tempo;	
+	
 	@Column(name = "cpf")
 	private String cpf;	
 
@@ -67,6 +70,14 @@ public class DocenteEntity implements Serializable {
 
 	public void setSobrenome(String sobrenome) {
 		this.sobrenome = sobrenome;
+	}
+	
+	public int getTempo() {
+		return tempo;
+	}
+
+	public void setTempo(int tempo) {
+		this.tempo = tempo;
 	}
 
 	public String getEmail() {
