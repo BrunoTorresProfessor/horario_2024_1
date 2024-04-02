@@ -1,6 +1,5 @@
 package br.com.horario.controller;
 
-import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,6 +57,18 @@ public class DocenteController {
 		model.addAttribute("setores",setorService.findAll());
 		model.addAttribute("idDocente",idDocente);		
 		model.addAttribute("docente", docenteService.getOneByIdDocente(idDocente));
+		
+		return mv;
+	
+	}
+	@PostMapping("/alterar_docente")
+	public ModelAndView update(
+			ModelMap model,
+			@ModelAttribute("docenteEntity") DocenteEntity docenteEntity,
+			RedirectAttributes atributes) throws Exception
+	{
+		ModelAndView mv = new ModelAndView("redirect:/docente");
+		atributes.addFlashAttribute("mensagem",docenteService.save(docenteEntity));
 		
 		return mv;
 	

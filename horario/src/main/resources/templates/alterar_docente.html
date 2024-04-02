@@ -3,14 +3,14 @@
 <head th:insert="~{layout/cabecalho}">
 
 <meta charset="ISO-8859-1">
-<title>Página de Docentes</title>
+<title>Alteração de Docente</title>
 </head>
 <body>
 <!-- Importa o menu padrao do sistema -->
 <div th:insert="~{layout/menu}"></div>
 
 
-<form name="salvar_docente" class="form-horizontal"  method="POST" th:action="@{/alterar_docente}" th:object="${docenteEntity}">
+<form name="alterar_docente" class="form-horizontal"  method="POST" th:action="@{/alterar_docente}" th:object="${docenteEntity}">
 <div class="container">	
 <h2>Docente</h2>
 
@@ -45,13 +45,10 @@
   <input type="email" class="form-control" id="email" name="email" placeholder="chinforinfolo@faetec.br" th:value=${docente.email}  required>
 </div>
 <div class="mb-3">
-    <button type="submit" class="btn btn-success form-control">Salvar</button>
+    <button type="submit" class="btn btn-success form-control">Alterar</button>
 </div>     
 </div>
-
 </form>
-
-
 
 </body>
 	<!-- Importa o rodape padrao do sistema -->
