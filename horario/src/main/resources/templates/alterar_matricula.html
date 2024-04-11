@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{layout/cabecalho}">
+
+<meta charset="ISO-8859-1">
+<title>Página de Matricula</title>
+</head>
+
+<body>
+<!-- Importa o menu padrao do sistema -->
+<div th:insert="~{layout/menu}"></div>
+
+<form name="salvar_matricula" class="form-horizontal"  method="POST" th:action="@{/salvar_matricula}" th:object="${matriculaEntity}">
+<div class="container-fluid">	
+<h2>Matrícula</h2>
+
+<div class="alert alert-success" th:text="${mensagem}" th:if="${not #strings.isEmpty(mensagem)}"></div>
+
+<div class="mb-3">
+<label for="docente" class="form-label">Docente</label>
+<select class="form-select" aria-label="Selecione o docente" id="docente" name="docente" required>
+   <option value="">Selecione o docente</option>
+   <option th:each="docente : ${docentes}" th:text="${docente.Nome}" th:value="${docente.idDocente}" >
+</select>
+</div>
+<div class="mb-3">
+  <label for="cargo" class="form-label">Cargo</label>
+<input type="text" class="form-control" id="cargo" name="cargo" required>
+</div>
+<div class="mb-3">
+  <label for="cargaHoraria" class="form-label">Carga Horária</label>
+<input type="text" class="form-control" id="cargaHoraria" name="cargaHoraria" required>
+</div>
+
+<div class="mb-3">
+    <button type="submit" class="btn btn-success form-control">Salvar</button>
+</div>
+
+
+</form>
+
+
+</body>
+
+<div th:insert="~{layout/rodape}"></div>
+
+</html>
+
+
