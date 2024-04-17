@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{layout/cabecalho}">
+
+<meta charset="ISO-8859-1">
+<title>Página de Docentes</title>
+</head>
+<body>
+<!-- Importa o menu padrao do sistema -->
+<div th:insert="~{layout/menu}"></div>
+
+
+<form name="salvar_tipoLocal" class="form-horizontal"  method="POST" th:action="@{/salvar_tipoLocal}" th:object="${tipoLocalEntity}">
+<div class="container-fluid">	
+<h2>Tipo Locais</h2>
+
+<!--Começa cadastro de docentes -->
+
+<div class="alert alert-success" th:text="${mensagem}" th:if="${not #strings.isEmpty(mensagem)}"></div>
+
+	
+<div class="mb-3">
+  <label for="nome" class="form-label">Nome</label>
+<input type="text" class="form-control" id="nome" name="nome" required>
+</div>
+
+<div class="mb-3">
+    <button type="submit" class="btn btn-success form-control">Salvar</button>
+</div>     
+
+<!--Termina cadastro de docentes -->
+
+<!--Começa lista de docentes -->
+<br>
+<h5 class="card-title">Locais cadastrados</h5>
+	<table class="table table-sm table-striped table-hover table-bordered">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Nome</th>							
+								<th class="col-1"></th>
+									<th class="col-1"></th>
+								
+						
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="tipo_local : ${TipoLocais}" >
+								<td th:text="${tipo_local.idTipoLocal}"></td>
+								<td th:text="${tipo_local.Nome}"></td>	
+				
+							    <td><a class="btn btn-sm btn-warning" th:href="@{alterar_tipoLocal/{idTipoLocal}(idTipoLocal=${tipo_local.IdTipoLocal})}" >Alterar</a></td> 	
+							    <!--Começa Exclusão-->
+							    <td>
+									<a class="delete btn btn-sm btn-danger" 
+									th:href="@{excluir_tipoLocal/{idTipoLocal}(idTipoLocal=${tipo_local.IdTipoLocal})}" 
+									onclick="if (confirm('Deseja realmente excluir o Local?')){return true;}else{event.stopPropagation(); event.preventDefault();};">
+										Excluir
+									</a>
+								</td>						
+							   <!--Termina Exclusão-->
+							</tr>							
+						</tbody>
+</table>
+<!--Termina lista de docentes -->
+
+</form>
+
+
+
+</body>
+	<!-- Importa o rodape padrao do sistema -->
+	<div th:insert="~{layout/rodape}"></div>
+</html>
