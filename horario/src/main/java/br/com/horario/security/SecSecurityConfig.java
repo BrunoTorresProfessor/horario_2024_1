@@ -26,20 +26,23 @@ public class SecSecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 	 
 	    http.authorizeHttpRequests(
-	            auth -> auth.requestMatchers("/signin", "/signup").permitAll()
-	            .requestMatchers("/").hasAnyRole("administrador")		         
-	            .requestMatchers("/admin/**").hasRole("administrador")	
-	
-	            .anyRequest().authenticated()
+	            auth -> auth
+	             //Qualquer tipo de permissão consegue acessar esse @controller
+	            .requestMatchers("/signin", "/signup").permitAll() 
+	            .requestMatchers("/preferencia").hasAnyAuthority("professor","coordenador_curso")
+	            //Quem possuir algum dos dois perfis pode acessar o @controller
+	            .requestMatchers("/disponibilidade").hasAnyAuthority("professor","coordenador_curso")
+	            .requestMatchers("/docente").hasAuthority("administrador")
+	          //Qualquer requisição ao @controller o usuário precisa estar autenticado
+	            .anyRequest().authenticated() 
 	           )
-	            .formLogin(formLogin -> formLogin	            		
-	                    .defaultSuccessUrl("/principal", true)
+	            .formLogin(formLogin -> formLogin	   
+	            		//Direciona para esse @controller quando o login está correto
+	                    .defaultSuccessUrl("/principal", true) 
 	                    .permitAll()
 	            )
 	            .rememberMe(rememberMe -> rememberMe.key("AbcdEfghIjkl..."))
-	            .logout(logout -> logout.logoutUrl("/signout").permitAll());
-	 
-	 
+	            .logout(logout -> logout.logoutUrl("/signout").permitAll());	 
 	    return http.build();
 	}
 	@Autowired
@@ -49,10 +52,8 @@ public class SecSecurityConfig {
 		BCryptPasswordEncoder b = new BCryptPasswordEncoder();
 		System.out.println(b.encode("123456"));
 		//Cripitografa a senha para salvar no banco de dados
-		auth.userDetailsService(userDetailServiceImpl).passwordEncoder(new BCryptPasswordEncoder());
-	 
-	    
-	  
+		auth.userDetailsService(userDetailServiceImpl).passwordEncoder(new BCryptPasswordEncoder());   
+		
 	}
 
 }

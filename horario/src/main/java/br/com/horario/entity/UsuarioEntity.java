@@ -29,7 +29,6 @@ public class UsuarioEntity implements Serializable,UserDetails {
 	@Column(name = "id_usuario")
 	private Long id_usuario;
 
-
 	@Column(name = "cpf") 
 	private String cpf;
 
@@ -40,8 +39,7 @@ public class UsuarioEntity implements Serializable,UserDetails {
 	private String nome;
 
 	@Column(name = "senha") 
-	private String senha;
-	
+	private String senha;	
 
 	@Column(name = "data_expiracao") 
 	private Date dataExpiracao;

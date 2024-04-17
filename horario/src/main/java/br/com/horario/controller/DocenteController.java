@@ -68,7 +68,7 @@ public class DocenteController {
 			RedirectAttributes atributes) throws Exception
 	{
 		ModelAndView mv = new ModelAndView("redirect:/docente");
-		atributes.addFlashAttribute("mensagem",docenteService.save(docenteEntity));
+		atributes.addFlashAttribute("mensagem",docenteService.update(docenteEntity));
 		
 		return mv;
 	

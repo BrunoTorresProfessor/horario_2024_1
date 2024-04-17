@@ -33,7 +33,11 @@ public class DocenteServiceImpl implements DocenteService {
 		}
 		else
 		{
-			docenteRepository.saveAndFlush(docenteEntity);
+			docenteRepository.incluirDocente(docenteEntity.getNome(), 
+											 docenteEntity.getSobrenome(), 
+											 docenteEntity.getCpf(), 
+											 docenteEntity.getEmail(), 
+											 docenteEntity.getSetor().getIdSetor());
 			this.mensagem = "Docente cadastrado com sucesso.";	
 		}
 		
@@ -43,7 +47,7 @@ public class DocenteServiceImpl implements DocenteService {
 	@Override
 	public List<DocenteEntity> findAll() {
 		
-		return docenteRepository.findAll();
+		return docenteRepository.listarDocentes();
 	}
 
 	@Override
@@ -58,7 +62,7 @@ public class DocenteServiceImpl implements DocenteService {
 	public String deleteById(Long idDocente) throws Exception {
 		try 
 		{
-			docenteRepository.deleteById(idDocente);
+			docenteRepository.excluirDocente(idDocente);
 			this.mensagem = "Docente excluído com sucesso.";	
 			
 		} catch (Exception e) {
@@ -67,6 +71,34 @@ public class DocenteServiceImpl implements DocenteService {
 		return mensagem;
 	}
 	//Termina Exclusão
+
+	@Override
+	public String update(DocenteEntity docenteEntity) throws Exception {
+		if (docenteEntity.getNome() == null) {
+			this.mensagem = "Digite o nome do docente.";		
+			throw new Exception("Prencha o nome do docente.");				
+		}
+		else if (docenteEntity.getSobrenome() == null) {
+			this.mensagem = "Preencha o sobrenome do docente.";		
+			throw new Exception("Prencha o nome do docente.");				
+		}
+		else if (docenteEntity.getEmail() == null) {
+			this.mensagem = "Preencha o email";		
+			throw new Exception("Prencha o nome do docente.");				
+		}
+		else
+		{
+			docenteRepository.alterarDocente(docenteEntity.getNome(), 
+											 docenteEntity.getSobrenome(), 
+											 docenteEntity.getCpf(), 
+											 docenteEntity.getEmail(), 
+											 docenteEntity.getSetor().getIdSetor(),
+											 docenteEntity.getIdDocente());
+			this.mensagem = "Docente alterado com sucesso.";	
+		}
+		
+		return mensagem;
+	}
 
 
 }

@@ -24,13 +24,10 @@ public class PermissaoEntity implements Serializable,GrantedAuthority {
 	private Long id;
 	
 	@Column(name = "nome")
-	private String nome;
-	
-	
+	private String nome;	
 	
 	@ManyToMany(mappedBy = "permissoes")
-    private List<UsuarioEntity> usuarios;	
-	
+    private List<UsuarioEntity> usuarios;		
 
 	public Long getId() {
 		return id;
@@ -39,7 +36,6 @@ public class PermissaoEntity implements Serializable,GrantedAuthority {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 
 	public List<UsuarioEntity> getUsuarios() {
 		return usuarios;
@@ -55,8 +51,7 @@ public class PermissaoEntity implements Serializable,GrantedAuthority {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-	
+	}	
 
 	@Override
 	public String getAuthority() {

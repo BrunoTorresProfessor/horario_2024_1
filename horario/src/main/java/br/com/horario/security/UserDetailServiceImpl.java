@@ -19,24 +19,15 @@ public class UserDetailServiceImpl implements UserDetailsService {
 	private UsuarioRepository usuarioRepository;
 
 	@Override
-	public UserDetails loadUserByUsername(String cpf) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String cpf) throws UsernameNotFoundException {		
 		
-		
-		UsuarioEntity usuario = this.usuarioRepository.getOneByCpf(cpf);
-		
+		UsuarioEntity usuario = this.usuarioRepository.getOneByCpf(cpf);		
 		
 		if (usuario == null) {
 			throw new UsernameNotFoundException("Usuário não encontrado.");
-		}
-		
-	
+		}	
 		return new User(usuario.getCpf(),usuario.getPassword(),true,true,true,true,usuario.getAuthorities());
 		
-		
-		
 	}
-
-
-   
 
 }
