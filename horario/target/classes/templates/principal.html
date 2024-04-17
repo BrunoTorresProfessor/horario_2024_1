@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{layout/cabecalho}">
+
+<meta charset="ISO-8859-1">
+<title>Página principal do sistema de Horários</title>
+</head>
+<body>
+<!-- Importa o menu padrao do sistema -->
+<div th:insert="~{layout/menu}"></div>
+<div class="container">	
+<form class="form-horizontal"  method="POST" style="margin: 10px">
+<h2>Principal</h2>
+
+   <!-- Start Stepper HTML -->
+<div class="container">
+<div class="accordion" id="accordionExample">
+<div class="steps">
+    <progress id="progress" value=0 max=100 ></progress>
+    <div class="step-item">
+        <button class="step-button text-center" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Escola
+        </button>
+        <div class="step-title">
+            Passo 1
+        </div>
+    </div>
+    <div class="step-item">
+        <button class="step-button text-center collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Setores
+        </button>
+        <div class="step-title">
+            Passo 2
+        </div>
+    </div>
+    <div class="step-item">
+        <button class="step-button text-center collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Salas/Laboratórios
+        </button>
+        <div class="step-title">
+            Passo 3
+        </div>
+    </div>
+    <div class="step-item">
+        <button class="step-button text-center collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+            Docentes
+        </button>
+        <div class="step-title">
+            Passo 4
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div  id="headingOne">
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+        data-bs-parent="#accordionExample">
+        <div class="card-body">
+            Cadastre a escola, exemplo: ETEJK
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div  id="headingTwo">
+
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+        <div class="card-body">
+           Cadastre os setores, exemplo: Coodernação de Informática.
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div  id="headingThree">
+
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+        data-bs-parent="#accordionExample">
+        <div class="card-body">
+           Cadastre as salas/laboratórios, exemplo: Laboratório 4, Sala 17.
+        </div>
+    </div>
+</div>
+<div class="card">
+<div  id="headingThree">
+
+    </div>
+    <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
+        data-bs-parent="#accordionExample">
+        <div class="card-body">
+           Cadastre os docentes dessa escola.
+        </div>
+    </div>
+</div>
+</div>
+</div>
+         <!-- End Start Stepper HTML -->
+
+</form>
+</div>
+
+	<!-- Importa o rodape padrao do sistema -->
+	<div th:insert="~{layout/rodape}"></div>
+</body>
+</html>
