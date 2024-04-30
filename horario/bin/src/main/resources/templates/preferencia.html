@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{layout/cabecalho}">
+
+<meta charset="ISO-8859-1">
+<title>Página de Preferência de Disciplinas</title>
+</head>
+<body>
+<!-- Importa o menu padrao do sistema -->
+<div th:insert="~{layout/menu}"></div>
+
+
+<form name="salvar_docente" class="form-horizontal"  method="POST" th:action="@{/salvar_docente}" th:object="${docenteEntity}">
+<div class="container-fluid">	
+<h2>Docente</h2>
+
+<div class="alert alert-success" th:text="${mensagem}" th:if="${not #strings.isEmpty(mensagem)}"></div>
+
+<br>
+<h5 class="card-title">Docentes cadastrados</h5>
+
+ <!--Começa Datatables-->
+ <table id="tabela_ajax" class="table table-striped" style="width:100%">
+        <thead>
+					<tr>
+								<th>ID</th>
+								<th>Curso</th>							
+								<th>Disciplina</th>
+								<th>Etapa</th>
+								<th>Ordem</th>
+						
+								
+						
+							</tr>
+        </thead>
+        <tbody>
+            <tr th:each="d, contador : ${disciplinas}" >
+								<td th:text="${d.id}"></td>
+								<td th:text="${d.curso}"></td>	
+								<td th:text="${d.disciplina}"></td>	
+								<td th:text="${d.etapa}"></td>	
+								<td>
+								<!--<select class="form-control" id="listPreferencias" name="listPreferencias">
+								<option value="0">Selecione a ordem</option>	
+								<option id="preferencia" th:each="preferencia : ${preferencias}" th:value="${preferencia.ordem}" th:text="${preferencia.ordem}" 
+								th:selected="(${preferencia[contador.index]} == ${d.ordem})" ></option>
+								</select>-->
+							    </td>
+						
+					
+							</tr>							
+            
+        </tbody>
+        <tfoot>
+            <tr>
+     				        	<th>ID</th>
+								<th>Curso</th>							
+								<th>Disciplina</th>
+								<th>Etapa</th>
+								<th>Ordem</th>
+				
+            </tr>
+        </tfoot>
+    </table>
+<script>
+	$(document).ready( function (){
+    var table = new DataTable('#tabela_ajax', {
+    language: {
+        url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/pt-BR.json',
+    },
+});
+
+} );
+</script>
+ <!--Termina Datatables-->
+</form>
+
+
+
+</body>
+	<!-- Importa o rodape padrao do sistema -->
+	<div th:insert="~{layout/rodape}"></div>
+</html>
