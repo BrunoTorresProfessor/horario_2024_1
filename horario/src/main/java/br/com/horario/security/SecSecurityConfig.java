@@ -29,9 +29,9 @@ public class SecSecurityConfig {
 	            auth -> auth
 	             //Qualquer tipo de permissão consegue acessar esse @controller
 	            .requestMatchers("/signin", "/signup").permitAll() 
-	            .requestMatchers("/preferencia").hasAnyAuthority("professor","coordenador_curso")
+	            .requestMatchers("/preferencia").hasAnyAuthority("administrador","professor","coordenador_curso")
 	            //Quem possuir algum dos dois perfis pode acessar o @controller
-	            .requestMatchers("/disponibilidade").hasAnyAuthority("professor","coordenador_curso")
+	            .requestMatchers("/disponibilidade").hasAnyAuthority("administrador","professor","coordenador_curso")
 	            .requestMatchers("/docente").hasAuthority("administrador")
 	          //Qualquer requisição ao @controller o usuário precisa estar autenticado
 	            .anyRequest().authenticated() 

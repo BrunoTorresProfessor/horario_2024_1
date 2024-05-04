@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.horario.entity.CepDTO;
+import br.com.horario.entity.DiaEntity;
 import br.com.horario.entity.DocenteEntity;
-import br.com.horario.service.CepService;
+import br.com.horario.entity.UsuarioEntity;
+import br.com.horario.service.DiaService;
 import br.com.horario.service.DocenteService;
 import br.com.horario.service.PreferenciaService;
 import br.com.horario.service.SetorService;
@@ -30,9 +31,14 @@ public class DocenteController {
 	@Autowired
 	private PreferenciaService preferenciaService;	
 	
-
 	@Autowired
-	private CepService cepService;	
+	private DiaService diaService;	
+	
+	
+
+	
+	
+
 	
 		
 	@GetMapping("/docente") //nome que eu quiser colocar 
@@ -41,13 +47,7 @@ public class DocenteController {
 		model.addAttribute("setores",setorService.findAll());
 		model.addAttribute("docentes",docenteService.findAll());
 		
-		//Começa teste cep
-		CepDTO cep = new CepDTO();		
-		cep = cepService.consultaCep("21240535");		
-		System.out.println(cep.getBairro());
-		System.out.println(cep.getLogradouro());
-		//termina teste cep
-		
+
 		return "docente"; //caminho real do arquivo
 	}
 	
@@ -106,16 +106,17 @@ public class DocenteController {
 	@GetMapping("/disponibilidade") //nome que eu quiser colocar 
 	public String disponibilidade(ModelMap model)
 	{
-		model.addAttribute("setores",setorService.findAll());
-		model.addAttribute("docentes",docenteService.findAll());
+		model.addAttribute("dias",diaService.findAll());
+		
+
+		
 		return "disponibilidade"; //caminho real do arquivo
 	}
 	
 	@GetMapping("/preferencia") //nome que eu quiser colocar 
-	public String preferencia(ModelMap model)
-	{
-		model.addAttribute("disciplinas",preferenciaService.listarDisciplinaDocentePreferencia());
-
+	public String preferencia(ModelMap model) 
+	{	
+		model.addAttribute("disciplinas",preferenciaService.listarDisciplinaDocentePreferencia());		
 		
 		return "preferencia"; //caminho real do arquivo
 	}

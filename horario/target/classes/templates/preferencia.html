@@ -12,12 +12,12 @@
 
 <form name="salvar_docente" class="form-horizontal"  method="POST" th:action="@{/salvar_docente}" th:object="${docenteEntity}">
 <div class="container-fluid">	
-<h2>Docente</h2>
+<h2>Preferência de Disciplinas</h2>
 
 <div class="alert alert-success" th:text="${mensagem}" th:if="${not #strings.isEmpty(mensagem)}"></div>
 
 <br>
-<h5 class="card-title">Docentes cadastrados</h5>
+<h5 class="card-title">Preferência de Disciplinas</h5>
 
  <!--Começa Datatables-->
  <table id="tabela_ajax" class="table table-striped" style="width:100%">
@@ -65,8 +65,8 @@
 <script>
 	$(document).ready( function (){
     var table = new DataTable('#tabela_ajax', {
-    language: {
-        url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/pt-BR.json',
+    language: {        
+		url: 'https://cdn.datatables.net/plug-ins/2.0.2/i18n/pt-BR.json',
     },
 });
 

@@ -3,7 +3,7 @@
 <head th:insert="~{layout/cabecalho}">
 
 <meta charset="ISO-8859-1">
-<title>Página de Disponibilidade</title>
+<title>Disponibilidade Docente</title>
 </head>
 <body>
 <!-- Importa o menu padrao do sistema -->
@@ -12,80 +12,94 @@
 
 <form name="salvar_docente" class="form-horizontal"  method="POST" th:action="@{/salvar_docente}" th:object="${docenteEntity}">
 <div class="container-fluid">	
-<h2>Docente</h2>
-
-<!--Começa cadastro de docentes -->
+<h2>	Disponibilidade Docente</h2>
 
 <div class="alert alert-success" th:text="${mensagem}" th:if="${not #strings.isEmpty(mensagem)}"></div>
 
-	
-<div class="mb-3">
-  <label for="nome" class="form-label">Nome</label>
-<input type="text" class="form-control" id="nome" name="nome" required>
-</div>
-<div class="mb-3">
-  <label for="sobrenome" class="form-label">Sobrenome</label>
-<input type="text" class="form-control" id="sobrenome" name="sobrenome" required>
-</div>
-<div class="mb-3">
-  <label for="sobrenome" class="form-label">Cpf</label>
-
-<input type="text" name="cpf" class="form-control" pattern="\d{11}" maxlength="11" minlength="11" placeholder="Digite somente números">
-</div>
-<div class="mb-3">
-<label for="setor" class="form-label">Setor</label>
-<select class="form-select" aria-label="Selecione o setor" id="setor" name="setor" required>
-   <option value="">Selecione o setor</option>
-   <option th:each="setor : ${setores}" th:text="${setor.nome}" th:value="${setor.idSetor}" >
-</select>
-</div>
-<div class="mb-3">
-  <label for="email" class="form-label">Email</label>
-  <input type="email" class="form-control" id="email" name="email" placeholder="chinforinfolo@faetec.br" required>
-</div>
-<div class="mb-3">
-    <button type="submit" class="btn btn-success form-control">Salvar</button>
-</div>     
-
-<!--Termina cadastro de docentes -->
-
-<!--Começa lista de docentes -->
 <br>
-<h5 class="card-title">Docentes cadastrados</h5>
-	<table class="table table-sm table-striped table-hover table-bordered">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Nome</th>							
-								<th>Setor</th>
-								<th>Email</th>
-								<th class="col-1"></th>
-									<th class="col-1"></th>
+<h5 class="card-title">Disponibilidade Docente</h5>
+
+ <!--Começa Datatables-->
+ <table id="tabela_ajax" class="table table-striped" style="width:100%">
+        <thead>
+					<tr>
+								<th>Dia</th>
+					
+						
 								
 						
 							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="docente : ${docentes}" >
-								<td th:text="${docente.IdDocente}"></td>
-								<td th:text="${docente.Nome + ' ' + docente.sobrenome}"></td>	
-								<td th:text="${docente.setor.nome}"></td>	
-								<td th:text="${docente.email}"></td>	
-							    <td><a class="btn btn-sm btn-warning" th:href="@{alterar_docente/{idDocente}(idDocente=${docente.IdDocente})}" >Alterar</a></td> 	
-							    <!--Começa Exclusão-->
-							    <td>
-									<a class="delete btn btn-sm btn-danger" 
-									th:href="@{excluir_docente/{idDocente}(idDocente=${docente.IdDocente})}" 
-									onclick="if (confirm('Deseja realmente excluir o Docente?')){return true;}else{event.stopPropagation(); event.preventDefault();};">
-										Excluir
-									</a>
-								</td>						
-							   <!--Termina Exclusão-->
+        </thead>
+        <tbody>
+            <tr th:each="dia, itemstat : ${dias}" >
+				
+								<td th:switch="${dia.ordem}">
+								    <span th:case="'2'">
+										<span th:text="${dia.nome}"></span>
+										<div th:each="tempos, i :${dia.tempo}">
+											<input type="checkbox"  th:value="${dia.tempo[i.index].idTempo}" />
+											<span th:text="${dia.tempo[i.index].nome}"></span>
+										</div>	
+									</span>
+								    <span th:case="'3'">
+										<span th:text="${dia.nome}"></span>
+										<div th:each="tempos, i :${dia.tempo}">
+											<input type="checkbox"  th:value="${dia.tempo[i.index].idTempo}" />
+											<span th:text="${dia.tempo[i.index].nome}"></span>
+										</div>
+									</span>
+									<span th:case="'4'">
+										<span th:text="${dia.nome}"></span>
+										<div th:each="tempos, i :${dia.tempo}">
+											<input type="checkbox"  th:value="${dia.tempo[i.index].idTempo}" />
+											<span th:text="${dia.tempo[i.index].nome}"></span>
+										</div>
+									</span>
+									<span th:case="'5'">
+										<span th:text="${dia.nome}"></span>
+										<div th:each="tempos, i :${dia.tempo}">
+											<input type="checkbox"  th:value="${dia.tempo[i.index].idTempo}" />
+											<span th:text="${dia.tempo[i.index].nome}"></span>
+									</div>
+									</span>
+									<span th:case="'6'">
+										<span th:text="${dia.nome}"></span>
+										<div th:each="tempos, i :${dia.tempo}">
+											<input type="checkbox"  th:value="${dia.tempo[i.index].idTempo}" />
+											<span th:text="${dia.tempo[i.index].nome}"></span>
+										</div>
+									</span>
+									<span th:case="'7'">
+										<span th:text="${dia.nome}"></span>
+										<div th:each="tempos, i :${dia.tempo}">
+											<input type="checkbox"  th:value="${dia.tempo[i.index].idTempo}" />
+											<span th:text="${dia.tempo[i.index].nome}"></span>
+										</div>
+									</span>
+								 
+								</td>
 							</tr>							
-						</tbody>
-</table>
-<!--Termina lista de docentes -->
+            
+        </tbody>
+        <tfoot>
+            <tr>
+				<th>Dia</th>
 
+				
+            </tr>
+        </tfoot>
+    </table>
+<script>
+	$(document).ready( function (){
+    var table = new DataTable('#tabela_ajax', {
+    language: {
+		url: 'https://cdn.datatables.net/plug-ins/2.0.2/i18n/pt-BR.json',
+    },
+});
+
+} );
+</script>
+ <!--Termina Datatables-->
 </form>
 
 

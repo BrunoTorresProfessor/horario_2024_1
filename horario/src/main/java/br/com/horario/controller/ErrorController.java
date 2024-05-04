@@ -15,6 +15,8 @@ public class ErrorController {
      
         String errorMessage = (throwable != null ? throwable.getMessage() : "Erro desconhecido.");
         model.addAttribute("errorMessage", errorMessage);
+        
+        System.out.println("Erro:" + throwable.getMessage());
         return "error";
     }
 

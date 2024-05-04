@@ -1,6 +1,7 @@
 package br.com.horario.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -39,6 +42,20 @@ public class DocenteEntity implements Serializable {
 	@OneToOne()
     @JoinColumn(name = "setor_id", referencedColumnName = "id_setor")
     private SetorEntity setor;
+	
+	@ManyToMany
+	@JoinTable(name="preferencia_disciplina_docente",
+    joinColumns={@JoinColumn(name="docente_id", referencedColumnName = "id_docente")},
+    inverseJoinColumns={@JoinColumn(name="disciplina_id", referencedColumnName = "id_disciplina")})
+	private List<DisciplinaEntity> preferenciaDisciplinas;	
+
+	public List<DisciplinaEntity> getPreferenciaDisciplinas() {
+		return preferenciaDisciplinas;
+	}
+
+	public void setPreferenciaDisciplinas(List<DisciplinaEntity> preferenciaDisciplinas) {
+		this.preferenciaDisciplinas = preferenciaDisciplinas;
+	}
 
 	public SetorEntity getSetor() {
 		return setor;

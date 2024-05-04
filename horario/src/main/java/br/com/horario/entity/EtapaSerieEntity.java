@@ -10,24 +10,25 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "etapa" , schema = "horario")
-public class EtapaEntity implements Serializable {
+@Table(name = "etapa_serie" , schema = "horario")
+public class EtapaSerieEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_etapa")
-	private Long idEtapa;
+	@Column(name = "id_etapa_serie")
+	private Long idEtapaSerie;
 	
 	@Column(name = "nome")
 	private String nome;
 
-	public Long getIdEtapa() {
-		return idEtapa;
+
+	public Long getIdEtapaSerie() {
+		return idEtapaSerie;
 	}
 
-	public void setIdEtapa(Long idEtapa) {
-		this.idEtapa = idEtapa;
+	public void setIdEtapaSerie(Long idEtapaSerie) {
+		this.idEtapaSerie = idEtapaSerie;
 	}
 
 	public String getNome() {
