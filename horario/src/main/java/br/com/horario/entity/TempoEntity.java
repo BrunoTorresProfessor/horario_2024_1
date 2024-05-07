@@ -1,15 +1,15 @@
 package br.com.horario.entity;
 
 import java.io.Serializable;
-import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,20 +24,27 @@ public class TempoEntity implements Serializable {
 	@Column(name = "id_tempo")
 	private Long idTempo;
 	
+	@OrderBy("name ASC")
 	@Column(name = "ordem") 
-	private String ordem;
+	private Long ordem;
 	
 	@Column(name = "nome") 
 	private String nome;
 	
-	@ManyToMany(mappedBy = "tempo", fetch = FetchType.EAGER)
-    private List<DiaEntity> dia;		
+	/*@ManyToMany(mappedBy = "tempo", fetch = FetchType.EAGER)
+    private List<DiaEntity> dia;*/		
 	
-	public List<DiaEntity> getDia() {
+	
+	@OneToOne()
+    @JoinColumn(name = "dia_id", referencedColumnName = "id_dia")
+    private DiaEntity dia;	
+
+
+	public DiaEntity getDia() {
 		return dia;
 	}
 
-	public void setDia(List<DiaEntity> dia) {
+	public void setDia(DiaEntity dia) {
 		this.dia = dia;
 	}
 
@@ -49,14 +56,6 @@ public class TempoEntity implements Serializable {
 		this.idTempo = idTempo;
 	}
 
-	public String getOrdem() {
-		return ordem;
-	}
-
-	public void setOrdem(String ordem) {
-		this.ordem = ordem;
-	}
-
 	public String getNome() {
 		return nome;
 	}
@@ -64,6 +63,15 @@ public class TempoEntity implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	public Long getOrdem() {
+		return ordem;
+	}
+
+	public void setOrdem(Long ordem) {
+		this.ordem = ordem;
+	}
+	
 
 
 

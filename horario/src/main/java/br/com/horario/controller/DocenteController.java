@@ -1,6 +1,8 @@
 package br.com.horario.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,11 +15,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.horario.entity.DiaEntity;
 import br.com.horario.entity.DocenteEntity;
-import br.com.horario.entity.UsuarioEntity;
-import br.com.horario.service.DiaService;
 import br.com.horario.service.DocenteService;
 import br.com.horario.service.PreferenciaService;
 import br.com.horario.service.SetorService;
+import br.com.horario.service.TempoService;
 
 @Controller
 public class DocenteController {
@@ -32,7 +33,7 @@ public class DocenteController {
 	private PreferenciaService preferenciaService;	
 	
 	@Autowired
-	private DiaService diaService;	
+	private TempoService tempoService;	
 	
 	
 
@@ -106,7 +107,7 @@ public class DocenteController {
 	@GetMapping("/disponibilidade") //nome que eu quiser colocar 
 	public String disponibilidade(ModelMap model)
 	{
-		model.addAttribute("dias",diaService.findAll());
+		model.addAttribute("tempos",tempoService.findAll());
 		
 
 		
@@ -119,6 +120,24 @@ public class DocenteController {
 		model.addAttribute("disciplinas",preferenciaService.listarDisciplinaDocentePreferencia());		
 		
 		return "preferencia"; //caminho real do arquivo
+	}
+	@PostMapping("/salvar_disponibilidade")
+    public ModelAndView salvarDispobinilidade(
+    		ModelMap model,
+    		@ModelAttribute("diaEntity") List<DiaEntity> diaEntity,
+    		RedirectAttributes atributes) throws Exception 
+	{ 			
+				
+				ModelAndView mv = new ModelAndView("redirect:/disponibilidade");
+				
+				 for(DiaEntity item : diaEntity)
+				 {
+			            System.out.print(item.getNome());
+			     }
+			
+				//atributes.addFlashAttribute("mensagem",docenteService.save(docenteEntity));
+				return mv;
+		
 	}
 	
 	

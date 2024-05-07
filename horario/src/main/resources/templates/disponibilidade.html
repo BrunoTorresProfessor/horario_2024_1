@@ -10,99 +10,102 @@
 <div th:insert="~{layout/menu}"></div>
 
 
-<form name="salvar_docente" class="form-horizontal"  method="POST" th:action="@{/salvar_docente}" th:object="${docenteEntity}">
+<form name="salvar_disponibilidade" class="form-horizontal"  method="POST" th:action="@{/salvar_disponibilidade}" th:object="${diaEntity}">
 <div class="container-fluid">	
-<h2>	Disponibilidade Docente</h2>
+<h2>Disponibilidade Docente</h2>
 
 <div class="alert alert-success" th:text="${mensagem}" th:if="${not #strings.isEmpty(mensagem)}"></div>
 
 <br>
-<h5 class="card-title">Disponibilidade Docente</h5>
+
 
  <!--Começa Datatables-->
  <table id="tabela_ajax" class="table table-striped" style="width:100%">
         <thead>
 					<tr>
-								<th>Dia</th>
-					
+						<th>Ordenação</th>
+						<th>Dia</th>
+						<th>Tempo</th>
+						<th>Disponibilidade</th>
 						
-								
-						
-							</tr>
+					</tr>
         </thead>
         <tbody>
-            <tr th:each="dia, itemstat : ${dias}" >
+            <tr th:each="tempo, itemstat : ${tempos}" >
+			
+				<td class="col-md-1">
+				  <span th:text="${tempo.ordem}"></span>
+				</td>
+				<td>
+					<span th:text="${tempo.dia.nome}"></span>
+				</td>
+				<td>						
+					 <span th:text="${tempo.nome}"></span>
+				</td>
+				<td class="col-md-1">
+					<input type="checkbox" th:value="${tempo.idTempo}" />								  
+				</td>
 				
-								<td th:switch="${dia.ordem}">
-								    <span th:case="'2'">
-										<span th:text="${dia.nome}"></span>
-										<div th:each="tempos, i :${dia.tempo}">
-											<input type="checkbox"  th:value="${dia.tempo[i.index].idTempo}" />
-											<span th:text="${dia.tempo[i.index].nome}"></span>
-										</div>	
-									</span>
-								    <span th:case="'3'">
-										<span th:text="${dia.nome}"></span>
-										<div th:each="tempos, i :${dia.tempo}">
-											<input type="checkbox"  th:value="${dia.tempo[i.index].idTempo}" />
-											<span th:text="${dia.tempo[i.index].nome}"></span>
-										</div>
-									</span>
-									<span th:case="'4'">
-										<span th:text="${dia.nome}"></span>
-										<div th:each="tempos, i :${dia.tempo}">
-											<input type="checkbox"  th:value="${dia.tempo[i.index].idTempo}" />
-											<span th:text="${dia.tempo[i.index].nome}"></span>
-										</div>
-									</span>
-									<span th:case="'5'">
-										<span th:text="${dia.nome}"></span>
-										<div th:each="tempos, i :${dia.tempo}">
-											<input type="checkbox"  th:value="${dia.tempo[i.index].idTempo}" />
-											<span th:text="${dia.tempo[i.index].nome}"></span>
-									</div>
-									</span>
-									<span th:case="'6'">
-										<span th:text="${dia.nome}"></span>
-										<div th:each="tempos, i :${dia.tempo}">
-											<input type="checkbox"  th:value="${dia.tempo[i.index].idTempo}" />
-											<span th:text="${dia.tempo[i.index].nome}"></span>
-										</div>
-									</span>
-									<span th:case="'7'">
-										<span th:text="${dia.nome}"></span>
-										<div th:each="tempos, i :${dia.tempo}">
-											<input type="checkbox"  th:value="${dia.tempo[i.index].idTempo}" />
-											<span th:text="${dia.tempo[i.index].nome}"></span>
-										</div>
-									</span>
-								 
-								</td>
-							</tr>							
+	    	</tr>							
             
         </tbody>
         <tfoot>
             <tr>
 				<th>Dia</th>
-
-				
+				<th>Tempo</th>		
+				<th>Disponibilidade</th>		
             </tr>
         </tfoot>
-    </table>
+ </table>
+ </div>	
+ <div class="mb-3">
+	    <button type="submit" class="btn btn-success form-control">Salvar Disponibilidade</button>
+ </div>  
 <script>
 	$(document).ready( function (){
     var table = new DataTable('#tabela_ajax', {
-    language: {
+		pageLength: 18,		
+		layout: {
+		    topStart: 
+		    {       
+		            buttons: [
+		               /* {
+		                    extend: 'copyHtml5',
+		                    title: 'Disponibilidade Docente'
+		                },
+		                {
+		                    extend: 'excelHtml5',
+		                    title: 'Disponibilidade Docente'
+		                },
+		                {
+		                    extend: 'csvHtml5',
+		                    title: 'Disponibilidade Docente'
+		                },*/
+		                {
+		                    extend: 'pdfHtml5',
+		                    title: 'Disponibilidade Docente'
+		                },
+		                {
+		                    extend: 'print',
+		                    title: 'Disponibilidade Docente'
+		                }
+		            ]
+		            
+		    }
+		    },	
+	
+    language: 
+	{
 		url: 'https://cdn.datatables.net/plug-ins/2.0.2/i18n/pt-BR.json',
     },
+	
+	
 });
 
 } );
 </script>
  <!--Termina Datatables-->
 </form>
-
-
 
 </body>
 	<!-- Importa o rodape padrao do sistema -->

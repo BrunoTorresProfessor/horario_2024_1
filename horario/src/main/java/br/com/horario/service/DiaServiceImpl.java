@@ -3,6 +3,7 @@ package br.com.horario.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.com.horario.entity.DiaEntity;
@@ -16,7 +17,7 @@ public class DiaServiceImpl implements DiaService {
 	@Override
 	public List<DiaEntity> findAll() {
 		
-		return diaRepository.findAll();
+		return diaRepository.findAll(Sort.by(Sort.Direction.ASC, "ordem"));
 	}
 
 }

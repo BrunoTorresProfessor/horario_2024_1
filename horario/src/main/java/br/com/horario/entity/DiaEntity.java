@@ -1,17 +1,13 @@
 package br.com.horario.entity;
 
 import java.io.Serializable;
-import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 
@@ -31,13 +27,13 @@ public class DiaEntity  implements Serializable {
 	@Column(name = "nome") 
 	private String nome;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	/*@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="dia_tempo",
     joinColumns={@JoinColumn(name="dia_id_dia", referencedColumnName = "id_dia")},
     inverseJoinColumns={@JoinColumn(name="tempo_id_tempo", referencedColumnName = "id_tempo")})
 	private List<TempoEntity> tempo;	
 	
-	/*@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	private List<TempoEntity> tempo;*/
 
 	public Long getIdDia() {
@@ -64,13 +60,7 @@ public class DiaEntity  implements Serializable {
 		this.nome = nome;
 	}
 
-	public List<TempoEntity> getTempo() {
-		return tempo;
-	}
 
-	public void setTempo(List<TempoEntity> tempo) {
-		this.tempo = tempo;
-	}
 
 	
 
