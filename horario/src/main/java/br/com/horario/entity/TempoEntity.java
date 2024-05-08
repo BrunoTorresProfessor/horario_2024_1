@@ -29,11 +29,7 @@ public class TempoEntity implements Serializable {
 	private Long ordem;
 	
 	@Column(name = "nome") 
-	private String nome;
-	
-	/*@ManyToMany(mappedBy = "tempo", fetch = FetchType.EAGER)
-    private List<DiaEntity> dia;*/		
-	
+	private String nome;	
 	
 	@OneToOne()
     @JoinColumn(name = "dia_id", referencedColumnName = "id_dia")
@@ -72,13 +68,10 @@ public class TempoEntity implements Serializable {
 		this.ordem = ordem;
 	}
 	
-
-
-
-
-
 	
-
+	
+	/*@ManyToMany(mappedBy = "tempo", fetch = FetchType.EAGER)
+    private List<DiaEntity> dia;*/		
 
 
 	

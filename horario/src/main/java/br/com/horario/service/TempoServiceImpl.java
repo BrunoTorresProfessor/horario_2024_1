@@ -15,8 +15,7 @@ public class TempoServiceImpl implements TempoService {
 	private TempoRepository tempoRepository;
 
 	@Override
-	public List<TempoEntity> findAll() {	
-		
+	public List<TempoEntity> findAll() {			
 		
 		return tempoRepository.findAll();
 	}

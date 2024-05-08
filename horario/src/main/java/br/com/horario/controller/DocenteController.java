@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import br.com.horario.entity.DiaEntity;
 import br.com.horario.entity.DocenteEntity;
+import br.com.horario.entity.TempoEntity;
 import br.com.horario.service.DocenteService;
 import br.com.horario.service.PreferenciaService;
 import br.com.horario.service.SetorService;
 import br.com.horario.service.TempoService;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class DocenteController {
@@ -34,6 +34,8 @@ public class DocenteController {
 	
 	@Autowired
 	private TempoService tempoService;	
+	
+	private String loginUsuarioLogado;
 	
 	
 
@@ -104,15 +106,7 @@ public class DocenteController {
 	}
 	//Termina Exclusão
 	
-	@GetMapping("/disponibilidade") //nome que eu quiser colocar 
-	public String disponibilidade(ModelMap model)
-	{
-		model.addAttribute("tempos",tempoService.findAll());
-		
 
-		
-		return "disponibilidade"; //caminho real do arquivo
-	}
 	
 	@GetMapping("/preferencia") //nome que eu quiser colocar 
 	public String preferencia(ModelMap model) 
@@ -121,19 +115,35 @@ public class DocenteController {
 		
 		return "preferencia"; //caminho real do arquivo
 	}
+	//começa disponibilidade
+	@GetMapping("/disponibilidade") 
+	public String disponibilidade(ModelMap model) throws Exception
+	{
+		List<TempoEntity> ListaTempos = tempoService.findAll();
+		model.addAttribute("tempos",ListaTempos);
+		model.addAttribute("docente", new DocenteEntity());
+		
+		return "disponibilidade"; 
+	}
+	//Termina disponibilidade
 	@PostMapping("/salvar_disponibilidade")
     public ModelAndView salvarDispobinilidade(
-    		ModelMap model,
-    		@ModelAttribute("diaEntity") List<DiaEntity> diaEntity,
+    		ModelMap model,    		
+    		@ModelAttribute("docente") DocenteEntity docente,
+    		HttpSession session,
     		RedirectAttributes atributes) throws Exception 
 	{ 			
-				
+		        loginUsuarioLogado = (String)session.getAttribute("loginUsuarioLogado");
+		        
+		        System.out.println("login :" + loginUsuarioLogado);
+		        
 				ModelAndView mv = new ModelAndView("redirect:/disponibilidade");
 				
-				 for(DiaEntity item : diaEntity)
-				 {
-			            System.out.print(item.getNome());
-			     }
+				//Imprime no console os tempos selecionados
+				for(TempoEntity item : docente.getTempos())
+				{
+			            System.out.print("codigo: " + item.getIdTempo() + " tempo: " + item.getNome() + "\n");
+			    }
 			
 				//atributes.addFlashAttribute("mensagem",docenteService.save(docenteEntity));
 				return mv;

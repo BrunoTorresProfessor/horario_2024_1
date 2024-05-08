@@ -48,6 +48,12 @@ public class DocenteEntity implements Serializable {
     joinColumns={@JoinColumn(name="docente_id", referencedColumnName = "id_docente")},
     inverseJoinColumns={@JoinColumn(name="disciplina_id", referencedColumnName = "id_disciplina")})
 	private List<DisciplinaEntity> preferenciaDisciplinas;	
+	
+	@ManyToMany
+	@JoinTable(name="docente_tempo",
+    joinColumns={@JoinColumn(name="docente_id", referencedColumnName = "id_docente")},
+    inverseJoinColumns={@JoinColumn(name="tempo_id", referencedColumnName = "id_tempo")})
+	private List<TempoEntity> tempos;	
 
 	public List<DisciplinaEntity> getPreferenciaDisciplinas() {
 		return preferenciaDisciplinas;
@@ -55,6 +61,14 @@ public class DocenteEntity implements Serializable {
 
 	public void setPreferenciaDisciplinas(List<DisciplinaEntity> preferenciaDisciplinas) {
 		this.preferenciaDisciplinas = preferenciaDisciplinas;
+	}	
+
+	public List<TempoEntity> getTempos() {
+		return tempos;
+	}
+
+	public void setTempos(List<TempoEntity> tempos) {
+		this.tempos = tempos;
 	}
 
 	public SetorEntity getSetor() {

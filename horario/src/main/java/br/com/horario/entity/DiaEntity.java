@@ -25,16 +25,7 @@ public class DiaEntity  implements Serializable {
 	private String ordem;
 	
 	@Column(name = "nome") 
-	private String nome;
-	
-	/*@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name="dia_tempo",
-    joinColumns={@JoinColumn(name="dia_id_dia", referencedColumnName = "id_dia")},
-    inverseJoinColumns={@JoinColumn(name="tempo_id_tempo", referencedColumnName = "id_tempo")})
-	private List<TempoEntity> tempo;	
-	
-	@ManyToMany(fetch = FetchType.EAGER)
-	private List<TempoEntity> tempo;*/
+	private String nome;	
 
 	public Long getIdDia() {
 		return idDia;
@@ -62,7 +53,14 @@ public class DiaEntity  implements Serializable {
 
 
 
+	/*@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name="dia_tempo",
+    joinColumns={@JoinColumn(name="dia_id_dia", referencedColumnName = "id_dia")},
+    inverseJoinColumns={@JoinColumn(name="tempo_id_tempo", referencedColumnName = "id_tempo")})
+	private List<TempoEntity> tempo;	
 	
+	@ManyToMany(fetch = FetchType.EAGER)
+	private List<TempoEntity> tempo;*/
 
 	
 	

@@ -10,7 +10,7 @@
 <div th:insert="~{layout/menu}"></div>
 
 
-<form name="salvar_disponibilidade" class="form-horizontal"  method="POST" th:action="@{/salvar_disponibilidade}" th:object="${diaEntity}">
+<form name="salvar_disponibilidade" class="form-horizontal"  method="POST" th:action="@{/salvar_disponibilidade}" th:object="${docente}">
 <div class="container-fluid">	
 <h2>Disponibilidade Docente</h2>
 
@@ -43,7 +43,7 @@
 					 <span th:text="${tempo.nome}"></span>
 				</td>
 				<td class="col-md-1">
-					<input type="checkbox" th:value="${tempo.idTempo}" />								  
+					<input type="checkbox" th:field="${docente.tempos}" th:value="${tempo.idTempo}" />								  
 				</td>
 				
 	    	</tr>							
@@ -51,20 +51,22 @@
         </tbody>
         <tfoot>
             <tr>
-				<th>Dia</th>
-				<th>Tempo</th>		
-				<th>Disponibilidade</th>		
+				<th>Ordenação</th>
+				<th>Dia</th>		
+				<th>Tempo</th>	
+				<th>Disponibilidade</th>	
             </tr>
         </tfoot>
  </table>
  </div>	
+ 
  <div class="mb-3">
 	    <button type="submit" class="btn btn-success form-control">Salvar Disponibilidade</button>
  </div>  
 <script>
 	$(document).ready( function (){
     var table = new DataTable('#tabela_ajax', {
-		pageLength: 18,		
+		pageLength: 96,	/*Coloquei quantidade completa de itens pois não está salvando a disponibilidade de itens de páginas diferentes*/
 		layout: {
 		    topStart: 
 		    {       
