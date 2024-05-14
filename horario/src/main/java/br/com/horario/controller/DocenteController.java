@@ -133,19 +133,18 @@ public class DocenteController {
     		HttpSession session,
     		RedirectAttributes atributes) throws Exception 
 	{ 			
-		        loginUsuarioLogado = (String)session.getAttribute("loginUsuarioLogado");
-		        
-		        System.out.println("login :" + loginUsuarioLogado);
-		        
+		        //recupera o usuario logado na sessão
+		        loginUsuarioLogado = (String)session.getAttribute("loginUsuarioLogado");      
+		     
+		        //indica o redirecionamento
 				ModelAndView mv = new ModelAndView("redirect:/disponibilidade");
 				
-				//Imprime no console os tempos selecionados
-				for(TempoEntity item : docente.getTempos())
-				{
-			            System.out.print("codigo: " + item.getIdTempo() + " tempo: " + item.getNome() + "\n");
-			    }
+				//instancia um novo objeto docente
+				DocenteEntity d = new DocenteEntity();
+				d = docenteService.getOneByCpf(loginUsuarioLogado);
+				d.setTempos(docente.getTempos());			;
 			
-				//atributes.addFlashAttribute("mensagem",docenteService.save(docenteEntity));
+				atributes.addFlashAttribute("mensagem",docenteService.saveOrUpdate(d));
 				return mv;
 		
 	}

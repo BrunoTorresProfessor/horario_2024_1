@@ -100,5 +100,18 @@ public class DocenteServiceImpl implements DocenteService {
 		return mensagem;
 	}
 
+	@Override
+	public DocenteEntity getOneByCpf(String Cpf) throws Exception {
+		
+		return docenteRepository.getOneByCpf(Cpf);
+	}
+
+	@Override
+	public String saveOrUpdate(DocenteEntity docenteEntity) throws Exception {
+		docenteRepository.save(docenteEntity);
+		this.mensagem = "Disponibilidade cadastrada co sucesso";	
+		return mensagem;
+	}
+
 
 }

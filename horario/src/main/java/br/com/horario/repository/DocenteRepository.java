@@ -15,7 +15,9 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface DocenteRepository extends JpaRepository<DocenteEntity, Long> {
 	
-	DocenteEntity getOneByIdDocente(Long idDocente);
+	 DocenteEntity getOneByIdDocente(Long idDocente);
+	
+	 DocenteEntity getOneByCpf(String cpf);
 	
 	 @Query(value = "SELECT * FROM horario.docente;", nativeQuery = true)
 	 List<DocenteEntity> listarDocentes();
