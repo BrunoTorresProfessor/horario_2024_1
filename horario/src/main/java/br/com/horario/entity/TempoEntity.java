@@ -1,6 +1,7 @@
 package br.com.horario.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
@@ -33,7 +35,11 @@ public class TempoEntity implements Serializable {
 	
 	@OneToOne()
     @JoinColumn(name = "dia_id", referencedColumnName = "id_dia")
-    private DiaEntity dia;	
+    private DiaEntity dia;		
+	
+	@ManyToMany(mappedBy = "tempos")
+    private List<DocenteEntity> docentes;
+
 
 
 	public DiaEntity getDia() {
@@ -67,11 +73,13 @@ public class TempoEntity implements Serializable {
 	public void setOrdem(Long ordem) {
 		this.ordem = ordem;
 	}
-	
-	
-	
-	/*@ManyToMany(mappedBy = "tempo", fetch = FetchType.EAGER)
-    private List<DiaEntity> dia;*/		
+	public List<DocenteEntity> getDocentes() {
+		return docentes;
+	}
+
+	public void setDocentes(List<DocenteEntity> docentes) {
+		this.docentes = docentes;
+	}		
 
 
 	

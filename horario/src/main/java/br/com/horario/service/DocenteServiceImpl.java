@@ -47,7 +47,7 @@ public class DocenteServiceImpl implements DocenteService {
 	@Override
 	public List<DocenteEntity> findAll() {
 		
-		return docenteRepository.listarDocentes();
+		return docenteRepository.findAll();
 	}
 
 	@Override

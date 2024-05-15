@@ -43,7 +43,8 @@
 					 <span th:text="${tempo.nome}"></span>
 				</td>
 				<td class="col-md-1">
-					<input type="checkbox" th:field="${docente.tempos}" th:value="${tempo.idTempo}" />								  
+					<input type="checkbox" name="tempos" th:field="${docente.tempos}" th:value="${tempo.idTempo}"/>								  
+					
 				</td>
 				
 	    	</tr>							

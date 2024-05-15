@@ -116,14 +116,38 @@ public class DocenteController {
 		return "preferencia"; //caminho real do arquivo
 	}
 	//começa disponibilidade
-	@GetMapping("/disponibilidade") 
-	public String disponibilidade(ModelMap model) throws Exception
+	/*@GetMapping("/disponibilidade") 
+	public String disponibilidade(ModelMap model,HttpSession session) throws Exception
 	{
+	
+		DocenteEntity docente = new DocenteEntity();
+		//recupera o usuario logado na sessão
+        loginUsuarioLogado = (String)session.getAttribute("loginUsuarioLogado");   
+		docente = docenteService.getOneByCpf(loginUsuarioLogado);
+		model.addAttribute("docente", docente);
+	
 		List<TempoEntity> ListaTempos = tempoService.findAll();
 		model.addAttribute("tempos",ListaTempos);
-		model.addAttribute("docente", new DocenteEntity());
 		
 		return "disponibilidade"; 
+	}*/
+	@GetMapping("/disponibilidade") 
+	public ModelAndView disponibilidade(ModelMap model,HttpSession session) throws Exception
+	{
+	
+		ModelAndView mv = new ModelAndView("disponibilidade");
+		DocenteEntity docente = new DocenteEntity();
+		//recupera o usuario logado na sessão
+        loginUsuarioLogado = (String)session.getAttribute("loginUsuarioLogado");   
+		docente = docenteService.getOneByCpf(loginUsuarioLogado);
+		//model.addAttribute("docente", docente);
+		mv.addObject("docente", docente);
+	
+		List<TempoEntity> ListaTempos = tempoService.findAll();
+		//model.addAttribute("tempos",ListaTempos);
+		mv.addObject("tempos", ListaTempos);
+		
+		return mv; 
 	}
 	//Termina disponibilidade
 	@PostMapping("/salvar_disponibilidade")
