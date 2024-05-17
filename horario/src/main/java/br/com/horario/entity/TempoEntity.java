@@ -2,6 +2,7 @@ package br.com.horario.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,6 +42,13 @@ public class TempoEntity implements Serializable {
     private List<DocenteEntity> docentes;
 
 
+	public List<DocenteEntity> getDocentes() {
+		return docentes;
+	}
+
+	public void setDocentes(List<DocenteEntity> docentes) {
+		this.docentes = docentes;
+	}
 
 	public DiaEntity getDia() {
 		return dia;
@@ -73,13 +81,35 @@ public class TempoEntity implements Serializable {
 	public void setOrdem(Long ordem) {
 		this.ordem = ordem;
 	}
-	public List<DocenteEntity> getDocentes() {
-		return docentes;
+
+	//O toString(), hashCode() e o equals() são necessários para o checkbox @manyTomany aparecer marcado automaticamente
+	@Override
+	public String toString() {
+		return "TempoEntity [nome=" + nome + "]";
 	}
 
-	public void setDocentes(List<DocenteEntity> docentes) {
-		this.docentes = docentes;
-	}		
+	@Override
+	public int hashCode() {
+		return Objects.hash(idTempo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TempoEntity other = (TempoEntity) obj;
+		return Objects.equals(idTempo, other.idTempo);
+	}
+	
+
+	
+
+	
+	
 
 
 	

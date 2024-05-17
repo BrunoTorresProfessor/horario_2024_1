@@ -145,7 +145,7 @@ public class DocenteController {
 	
 		List<TempoEntity> ListaTempos = tempoService.findAll();
 		//model.addAttribute("tempos",ListaTempos);
-		mv.addObject("tempos", ListaTempos);
+		mv.addObject("listatempos", ListaTempos);
 		
 		return mv; 
 	}

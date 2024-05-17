@@ -1,9 +1,11 @@
 package br.com.horario.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -51,24 +53,38 @@ public class DocenteEntity implements Serializable {
     inverseJoinColumns={@JoinColumn(name="disciplina_id", referencedColumnName = "id_disciplina")})
 	private List<DisciplinaEntity> preferenciaDisciplinas;	
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	/*@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinTable(name="docente_tempo",
     joinColumns={@JoinColumn(name="docente_id", referencedColumnName = "id_docente")},
     inverseJoinColumns={@JoinColumn(name="tempo_id", referencedColumnName = "id_tempo")})
-	private List<TempoEntity> tempos;	
+	private List<TempoEntity> tempos;*/
+	
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinTable(name="docente_tempo",
+    joinColumns={@JoinColumn(name="docente_id", referencedColumnName = "id_docente")},
+    inverseJoinColumns={@JoinColumn(name="tempo_id", referencedColumnName = "id_tempo")})
+	 private Set<TempoEntity> tempos = new HashSet<>();
     
+	
+    
+
+	public Set<TempoEntity> getTempos() {
+		return tempos;
+	}
+
+
+
+	public void setTempos(Set<TempoEntity> tempos) {
+		this.tempos = tempos;
+	}
+
+
 
 	public List<DisciplinaEntity> getPreferenciaDisciplinas() {
 		return preferenciaDisciplinas;
 	}
 
-	public List<TempoEntity> getTempos() {
-		return tempos;
-	}
 
-	public void setTempos(List<TempoEntity> tempos) {
-		this.tempos = tempos;
-	}
 
 	public void setPreferenciaDisciplinas(List<DisciplinaEntity> preferenciaDisciplinas) {
 		this.preferenciaDisciplinas = preferenciaDisciplinas;

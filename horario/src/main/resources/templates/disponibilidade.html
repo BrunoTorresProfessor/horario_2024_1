@@ -25,13 +25,12 @@
 					<tr>
 						<th>Ordenação</th>
 						<th>Dia</th>
-						<th>Tempo</th>
 						<th>Disponibilidade</th>
 						
 					</tr>
         </thead>
         <tbody>
-            <tr th:each="tempo, itemstat : ${tempos}" >
+            <tr th:each="tempo, itemstat : ${listatempos}" >
 			
 				<td class="col-md-1">
 				  <span th:text="${tempo.ordem}"></span>
@@ -39,11 +38,10 @@
 				<td>
 					<span th:text="${tempo.dia.nome}"></span>
 				</td>
-				<td>						
-					 <span th:text="${tempo.nome}"></span>
-				</td>
 				<td class="col-md-1">
-					<input type="checkbox" name="tempos" th:field="${docente.tempos}" th:value="${tempo.idTempo}"/>								  
+					<!--Para o checkbox aparecer marcado é necessário que seu nome seja igual ao atributo na entidade-->
+					<input type="checkbox" name="tempos" id="tempos" th:text="${' ' + tempo.nome}" th:value="${tempo.idTempo}" th:field="${docente.tempos}">	
+												  
 					
 				</td>
 				
@@ -54,7 +52,6 @@
             <tr>
 				<th>Ordenação</th>
 				<th>Dia</th>		
-				<th>Tempo</th>	
 				<th>Disponibilidade</th>	
             </tr>
         </tfoot>
