@@ -1,6 +1,7 @@
 package br.com.horario.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,6 +38,39 @@ public class SetorEntity implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	public SetorEntity(Long idSetor, String nome) {
+		super();
+		this.idSetor = idSetor;
+		this.nome = nome;
+	}
+
+	@Override
+	public String toString() {
+		return "SetorEntity [idSetor=" + idSetor + ", nome=" + nome + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(idSetor, nome);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SetorEntity other = (SetorEntity) obj;
+		return Objects.equals(idSetor, other.idSetor) && Objects.equals(nome, other.nome);
+	}
+
+	public SetorEntity() {
+		super();
+	}
+	
 
 	
 	

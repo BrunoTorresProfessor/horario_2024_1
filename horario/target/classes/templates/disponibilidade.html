@@ -26,6 +26,7 @@
 						<th>Ordenação</th>
 						<th>Dia</th>
 						<th>Disponibilidade</th>
+						<th>Prioridade</th>
 						
 					</tr>
         </thead>
@@ -40,9 +41,17 @@
 				</td>
 				<td class="col-md-1">
 					<!--Para o checkbox aparecer marcado é necessário que seu nome seja igual ao atributo na entidade-->
-					<input type="checkbox" name="tempos" id="tempos" th:text="${' ' + tempo.nome}" th:value="${tempo.idTempo}" th:field="${docente.tempos}">	
-												  
+					<input type="checkbox"  name="tempos" id="tempos" th:text="${' ' + tempo.nome}" th:value="${tempo.idTempo}" th:field="${docente.tempos}">											  
+				</td>
+				<td class="col-md-2">	
+			
 					
+				
+					
+					<input type="text"  name="prioridades" id="prioridades" th:text="${not #lists.isEmpty(docente.prioridades)} ? ${docente.prioridades[0].id.docenteId}" th:field="${docente.prioridades}"    placeholder="Não repita o número da prioridade.">
+					
+				    
+						
 				</td>
 				
 	    	</tr>							
@@ -53,14 +62,18 @@
 				<th>Ordenação</th>
 				<th>Dia</th>		
 				<th>Disponibilidade</th>	
+				<th>Prioridade</th>
             </tr>
         </tfoot>
  </table>
  </div>	
+
  
  <div class="mb-3">
 	    <button type="submit" class="btn btn-success form-control">Salvar Disponibilidade</button>
  </div>  
+ 
+
 <script>
 	$(document).ready( function (){
     var table = new DataTable('#tabela_ajax', {
@@ -69,18 +82,7 @@
 		    topStart: 
 		    {       
 		            buttons: [
-		               /* {
-		                    extend: 'copyHtml5',
-		                    title: 'Disponibilidade Docente'
-		                },
-		                {
-		                    extend: 'excelHtml5',
-		                    title: 'Disponibilidade Docente'
-		                },
-		                {
-		                    extend: 'csvHtml5',
-		                    title: 'Disponibilidade Docente'
-		                },*/
+
 		                {
 		                    extend: 'pdfHtml5',
 		                    title: 'Disponibilidade Docente'
@@ -101,11 +103,14 @@
 	
 	
 });
-
 } );
+
 </script>
  <!--Termina Datatables-->
 </form>
+
+
+
 
 </body>
 	<!-- Importa o rodape padrao do sistema -->

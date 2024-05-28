@@ -188,6 +188,33 @@ INSERT INTO `docente` VALUES (10,'BRUNO','AUGUSTO TORRES','99999999999','brunoto
 UNLOCK TABLES;
 
 --
+-- Table structure for table `docente_disciplina`
+--
+
+DROP TABLE IF EXISTS `docente_disciplina`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `docente_disciplina` (
+  `docente_id` bigint NOT NULL,
+  `disciplina_id` bigint NOT NULL,
+  PRIMARY KEY (`docente_id`,`disciplina_id`),
+  KEY `fk_docente_disciplina_disciplina_idx` (`disciplina_id`),
+  CONSTRAINT `fk_docente_disciplina_disciplina` FOREIGN KEY (`disciplina_id`) REFERENCES `disciplina` (`id_disciplina`),
+  CONSTRAINT `fk_docente_disciplina_docente` FOREIGN KEY (`docente_id`) REFERENCES `docente` (`id_docente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Essa entidade associativa forma a preferencia em relação as disciplinas de um docente.';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `docente_disciplina`
+--
+
+LOCK TABLES `docente_disciplina` WRITE;
+/*!40000 ALTER TABLE `docente_disciplina` DISABLE KEYS */;
+INSERT INTO `docente_disciplina` VALUES (10,1),(10,8),(10,10),(10,15);
+/*!40000 ALTER TABLE `docente_disciplina` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `docente_tempo`
 --
 
@@ -197,7 +224,8 @@ DROP TABLE IF EXISTS `docente_tempo`;
 CREATE TABLE `docente_tempo` (
   `docente_id` bigint NOT NULL,
   `tempo_id` bigint NOT NULL,
-  PRIMARY KEY (`docente_id`,`tempo_id`),
+  `prioridade` bigint NOT NULL,
+  PRIMARY KEY (`docente_id`,`tempo_id`,`prioridade`),
   KEY `fk_docente_tempo_tempo_idx` (`tempo_id`),
   CONSTRAINT `fk_docente_tempo_docente` FOREIGN KEY (`docente_id`) REFERENCES `docente` (`id_docente`),
   CONSTRAINT `fk_docente_tempo_tempo` FOREIGN KEY (`tempo_id`) REFERENCES `tempo` (`id_tempo`)
@@ -210,6 +238,7 @@ CREATE TABLE `docente_tempo` (
 
 LOCK TABLES `docente_tempo` WRITE;
 /*!40000 ALTER TABLE `docente_tempo` DISABLE KEYS */;
+INSERT INTO `docente_tempo` VALUES (10,1,1),(11,1,1),(11,1,2),(10,2,2),(11,3,3);
 /*!40000 ALTER TABLE `docente_tempo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -703,4 +732,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-13 22:54:08
+-- Dump completed on 2024-05-28 15:17:33

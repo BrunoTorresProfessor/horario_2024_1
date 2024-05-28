@@ -4,15 +4,17 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,7 +29,7 @@ public class TempoEntity implements Serializable {
 	@Column(name = "id_tempo")
 	private Long idTempo;
 	
-	@OrderBy("name ASC")
+
 	@Column(name = "ordem") 
 	private Long ordem;
 	
@@ -48,6 +50,18 @@ public class TempoEntity implements Serializable {
 
 	public void setDocentes(List<DocenteEntity> docentes) {
 		this.docentes = docentes;
+	}
+	
+	@OneToMany(mappedBy = "tempo",cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	List<DocenteTempo> prioridades;
+
+
+	public List<DocenteTempo> getPrioridades() {
+		return prioridades;
+	}
+
+	public void setPrioridades(List<DocenteTempo> prioridades) {
+		this.prioridades = prioridades;
 	}
 
 	public DiaEntity getDia() {
@@ -104,7 +118,14 @@ public class TempoEntity implements Serializable {
 		TempoEntity other = (TempoEntity) obj;
 		return Objects.equals(idTempo, other.idTempo);
 	}
+
 	
+
+
+
+
+
+
 
 	
 

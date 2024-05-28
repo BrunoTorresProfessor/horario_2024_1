@@ -1,9 +1,8 @@
 package br.com.horario.entity;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -15,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -47,48 +47,50 @@ public class DocenteEntity implements Serializable {
     @JoinColumn(name = "setor_id", referencedColumnName = "id_setor")
     private SetorEntity setor;
 	
-	@ManyToMany
-	@JoinTable(name="preferencia_disciplina_docente",
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinTable(name="docente_disciplina",
     joinColumns={@JoinColumn(name="docente_id", referencedColumnName = "id_docente")},
     inverseJoinColumns={@JoinColumn(name="disciplina_id", referencedColumnName = "id_disciplina")})
-	private List<DisciplinaEntity> preferenciaDisciplinas;	
-	
-	/*@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-	@JoinTable(name="docente_tempo",
-    joinColumns={@JoinColumn(name="docente_id", referencedColumnName = "id_docente")},
-    inverseJoinColumns={@JoinColumn(name="tempo_id", referencedColumnName = "id_tempo")})
-	private List<TempoEntity> tempos;*/
+	private List<DisciplinaEntity> disciplinas;	
 	
 	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinTable(name="docente_tempo",
     joinColumns={@JoinColumn(name="docente_id", referencedColumnName = "id_docente")},
     inverseJoinColumns={@JoinColumn(name="tempo_id", referencedColumnName = "id_tempo")})
-	 private Set<TempoEntity> tempos = new HashSet<>();
-    
+	private List<TempoEntity> tempos;	
 	
-    
 
-	public Set<TempoEntity> getTempos() {
+	public List<TempoEntity> getTempos() {
 		return tempos;
 	}
-
-
-
-	public void setTempos(Set<TempoEntity> tempos) {
+	public void setTempos(List<TempoEntity> tempos) {
 		this.tempos = tempos;
 	}
-
-
-
-	public List<DisciplinaEntity> getPreferenciaDisciplinas() {
-		return preferenciaDisciplinas;
+	
+	
+	public List<DisciplinaEntity> getDisciplinas() {
+		return disciplinas;
+	}
+	public void setDisciplinas(List<DisciplinaEntity> disciplinas) {
+		this.disciplinas = disciplinas;
 	}
 
+	@OneToMany(mappedBy = "docente",cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	List<DocenteTempo> prioridades;	
+	
 
+	
+	
+	
+	
+	
 
-	public void setPreferenciaDisciplinas(List<DisciplinaEntity> preferenciaDisciplinas) {
-		this.preferenciaDisciplinas = preferenciaDisciplinas;
-	}	
+	public List<DocenteTempo> getPrioridades() {
+		return prioridades;
+	}
+	public void setPrioridades(List<DocenteTempo> prioridades) {
+		this.prioridades = prioridades;
+	}
 	public SetorEntity getSetor() {
 		return setor;
 	}
@@ -144,6 +146,53 @@ public class DocenteEntity implements Serializable {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+	
+
+
+	public DocenteEntity(Long idDocente, String nome, String sobrenome, int tempo, String cpf, String email,
+			SetorEntity setor, List<DisciplinaEntity> disciplinas, List<TempoEntity> tempos,
+			List<DocenteTempo> prioridades) {
+		super();
+		this.idDocente = idDocente;
+		this.nome = nome;
+		this.sobrenome = sobrenome;
+		this.tempo = tempo;
+		this.cpf = cpf;
+		this.email = email;
+		this.setor = setor;
+		this.disciplinas = disciplinas;
+		this.tempos = tempos;
+		this.prioridades = prioridades;
+	}
+	@Override
+	public String toString() {
+		return "DocenteEntity [idDocente=" + idDocente + ", nome=" + nome + ", sobrenome=" + sobrenome + ", tempo="
+				+ tempo + ", cpf=" + cpf + ", email=" + email + ", setor=" + setor + ", disciplinas=" + disciplinas
+				+ ", tempos=" + tempos + "]";
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(cpf, disciplinas, email, idDocente, nome, setor, sobrenome, tempo, tempos);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DocenteEntity other = (DocenteEntity) obj;
+		return Objects.equals(cpf, other.cpf) && Objects.equals(disciplinas, other.disciplinas)
+				&& Objects.equals(email, other.email) && Objects.equals(idDocente, other.idDocente)
+				&& Objects.equals(nome, other.nome) && Objects.equals(setor, other.setor)
+				&& Objects.equals(sobrenome, other.sobrenome) && tempo == other.tempo
+				&& Objects.equals(tempos, other.tempos);
+	}
+	public DocenteEntity() {
+		super();
+	}
+	
 	
 
 

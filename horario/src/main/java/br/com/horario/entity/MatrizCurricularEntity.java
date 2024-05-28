@@ -1,6 +1,7 @@
 package br.com.horario.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -62,6 +63,31 @@ public class MatrizCurricularEntity implements Serializable {
 	public void setAnoMatriz(String anoMatriz) {
 		this.anoMatriz = anoMatriz;
 	}
+
+	@Override
+	public String toString() {
+		return "MatrizCurricularEntity [idMatrizCurricular=" + idMatrizCurricular + ", nome=" + nome + ", curso="
+				+ curso + ", anoMatriz=" + anoMatriz + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(anoMatriz, curso, idMatrizCurricular, nome);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MatrizCurricularEntity other = (MatrizCurricularEntity) obj;
+		return Objects.equals(anoMatriz, other.anoMatriz) && Objects.equals(curso, other.curso)
+				&& Objects.equals(idMatrizCurricular, other.idMatrizCurricular) && Objects.equals(nome, other.nome);
+	}
+	
 
 	
 	

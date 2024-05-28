@@ -2,6 +2,7 @@ package br.com.horario.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -44,7 +45,7 @@ public class DisciplinaEntity implements Serializable {
     @JoinColumn(name = "etapa_serie_id", referencedColumnName = "id_etapa_serie")
     private EtapaSerieEntity etapaSerie;
 	
-	@ManyToMany(mappedBy = "preferenciaDisciplinas")
+	@ManyToMany(mappedBy = "disciplinas")
     private List<DocenteEntity> docentes;
 
 	public Long getIdDisciplina() {
@@ -109,7 +110,42 @@ public class DisciplinaEntity implements Serializable {
 
 	public void setDocentes(List<DocenteEntity> docentes) {
 		this.docentes = docentes;
-	}		
+	}
+
+	public EtapaSerieEntity getEtapaSerie() {
+		return etapaSerie;
+	}
+
+	public void setEtapaSerie(EtapaSerieEntity etapaSerie) {
+		this.etapaSerie = etapaSerie;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "DisciplinaEntity [nome=" + nome + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(idDisciplina);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DisciplinaEntity other = (DisciplinaEntity) obj;
+		return Objects.equals(idDisciplina, other.idDisciplina);
+	}
+
+	
+	
 	
 	
 

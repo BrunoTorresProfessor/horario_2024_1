@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import br.com.horario.entity.DisciplinaEntity;
 import br.com.horario.entity.DocenteEntity;
 import br.com.horario.entity.TempoEntity;
+import br.com.horario.service.DisciplinaService;
 import br.com.horario.service.DocenteService;
-import br.com.horario.service.PreferenciaService;
 import br.com.horario.service.SetorService;
 import br.com.horario.service.TempoService;
 import jakarta.servlet.http.HttpSession;
@@ -29,11 +31,12 @@ public class DocenteController {
 	@Autowired
 	private SetorService setorService;	
 	
-	@Autowired
-	private PreferenciaService preferenciaService;	
-	
+
 	@Autowired
 	private TempoService tempoService;	
+	
+	@Autowired
+	private DisciplinaService disciplinaService;	
 	
 	private String loginUsuarioLogado;
 	
@@ -109,12 +112,44 @@ public class DocenteController {
 
 	
 	@GetMapping("/preferencia") //nome que eu quiser colocar 
-	public String preferencia(ModelMap model) 
-	{	
-		model.addAttribute("disciplinas",preferenciaService.listarDisciplinaDocentePreferencia());		
+	public ModelAndView preferencia(ModelMap model,HttpSession session) throws Exception 
+	{
+		ModelAndView mv = new ModelAndView("preferencia");
+		DocenteEntity docente = new DocenteEntity();
+		//recupera o usuario logado na sessão
+        loginUsuarioLogado = (String)session.getAttribute("loginUsuarioLogado");   
+		docente = docenteService.getOneByCpf(loginUsuarioLogado);
+		mv.addObject("docente", docente);
+	
+		List<DisciplinaEntity> ListaDisciplinas = disciplinaService.findAll();
+		mv.addObject("listadisciplinas", ListaDisciplinas);
 		
-		return "preferencia"; //caminho real do arquivo
+		
+		return mv; //caminho real do arquivo
 	}
+	@PostMapping("/salvar_preferencia")
+    public ModelAndView salvarPreferencia(
+    		ModelMap model,    		
+    		@ModelAttribute("docente") DocenteEntity docente,
+    		HttpSession session,
+    		RedirectAttributes atributes) throws Exception 
+	{ 			
+		        //recupera o usuario logado na sessão
+		        loginUsuarioLogado = (String)session.getAttribute("loginUsuarioLogado");      
+		     
+		        //indica o redirecionamento
+				ModelAndView mv = new ModelAndView("redirect:/preferencia");
+				
+				//instancia um novo objeto docente
+				DocenteEntity d = new DocenteEntity();
+				d = docenteService.getOneByCpf(loginUsuarioLogado);
+				d.setDisciplinas(docente.getDisciplinas());			;
+			
+				atributes.addFlashAttribute("mensagem",docenteService.saveOrUpdate(d));
+				return mv;
+		
+	}
+	
 	//começa disponibilidade
 	/*@GetMapping("/disponibilidade") 
 	public String disponibilidade(ModelMap model,HttpSession session) throws Exception

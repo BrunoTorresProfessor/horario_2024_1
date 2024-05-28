@@ -109,7 +109,7 @@ public class DocenteServiceImpl implements DocenteService {
 	@Override
 	public String saveOrUpdate(DocenteEntity docenteEntity) throws Exception {
 		docenteRepository.save(docenteEntity);
-		this.mensagem = "Disponibilidade cadastrada co sucesso";	
+		this.mensagem = "Cadastro realizado com sucesso";	
 		return mensagem;
 	}
 

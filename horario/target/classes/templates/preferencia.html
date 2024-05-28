@@ -10,7 +10,7 @@
 <div th:insert="~{layout/menu}"></div>
 
 
-<form name="salvar_docente" class="form-horizontal"  method="POST" th:action="@{/salvar_docente}" th:object="${docenteEntity}">
+<form name="salvar_docente" class="form-horizontal"  method="POST" th:action="@{/salvar_preferencia}" th:object="${docente}">
 <div class="container-fluid">	
 <h2>Preferência de Disciplinas</h2>
 
@@ -23,28 +23,31 @@
  <table id="tabela_ajax" class="table table-striped" style="width:100%">
         <thead>
 					<tr>
-								<th>ID</th>
+								<!--<th>ID</th>
 								<th>Curso</th>							
 								<th>Disciplina</th>
-								<th>Etapa</th>
-								<th>Ordem</th>
+								<th>Etapa</th>-->
+								<th>Disciplina</th>
 						
 								
 						
 							</tr>
         </thead>
         <tbody>
-            <tr th:each="d, contador : ${disciplinas}" >
-								<td th:text="${d.id}"></td>
+            <tr th:each="d, contador : ${listadisciplinas}" >
+								<!--<td th:text="${d.id}"></td>
 								<td th:text="${d.curso}"></td>	
 								<td th:text="${d.disciplina}"></td>	
-								<td th:text="${d.etapa}"></td>	
+								<td th:text="${d.etapa}"></td>	-->
 								<td>
 								<!--<select class="form-control" id="listPreferencias" name="listPreferencias">
 								<option value="0">Selecione a ordem</option>	
 								<option id="preferencia" th:each="preferencia : ${preferencias}" th:value="${preferencia.ordem}" th:text="${preferencia.ordem}" 
 								th:selected="(${preferencia[contador.index]} == ${d.ordem})" ></option>
 								</select>-->
+								<!--Para o checkbox aparecer marcado é necessário que seu nome seja igual ao atributo na entidade-->
+								<input type="checkbox" name="disciplinas" id="disciplinas" th:text="${' ' + d.nome}" th:value="${d.idDisciplina}" th:field="${docente.disciplinas}">											  
+											
 							    </td>
 						
 					
@@ -53,15 +56,20 @@
         </tbody>
         <tfoot>
             <tr>
-     				        	<th>ID</th>
+     				        	<!--<th>ID</th>
 								<th>Curso</th>							
 								<th>Disciplina</th>
-								<th>Etapa</th>
-								<th>Ordem</th>
+								<th>Etapa</th>-->
+								<th>Disciplina</th>
 				
             </tr>
         </tfoot>
     </table>
+</div>
+<div class="mb-3">
+    <button type="submit" class="btn btn-success form-control">Salvar Preferência</button>
+</div>  
+	
 <script>
 	$(document).ready( function (){
     var table = new DataTable('#tabela_ajax', {

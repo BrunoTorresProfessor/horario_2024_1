@@ -1,6 +1,7 @@
 package br.com.horario.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,6 +39,29 @@ public class EtapaSerieEntity implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	@Override
+	public String toString() {
+		return "EtapaSerieEntity [idEtapaSerie=" + idEtapaSerie + ", nome=" + nome + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(idEtapaSerie, nome);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EtapaSerieEntity other = (EtapaSerieEntity) obj;
+		return Objects.equals(idEtapaSerie, other.idEtapaSerie) && Objects.equals(nome, other.nome);
+	}
+	
 	
 	
 	
