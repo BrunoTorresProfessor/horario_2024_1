@@ -73,7 +73,24 @@
 <script>
 	$(document).ready( function (){
     var table = new DataTable('#tabela_ajax', {
-	pageLength: 23,	
+	pageLength: 50,	
+	layout: {
+			    topStart: 
+			    {       
+			            buttons: [
+
+			                {
+			                    extend: 'pdfHtml5',
+			                    title: 'Disponibilidade Docente'
+			                },
+			                {
+			                    extend: 'print',
+			                    title: 'Disponibilidade Docente'
+			                }
+			            ]
+			            
+			    }
+	},			
     language: {        
 		url: 'https://cdn.datatables.net/plug-ins/2.0.2/i18n/pt-BR.json',
     },

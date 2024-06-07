@@ -11,5 +11,7 @@ import br.com.horario.entity.TempoEntity;
 public interface TempoRepository extends JpaRepository<TempoEntity, Long> {
 	
 	List<TempoEntity> findAllByOrderByOrdemAsc();
+	
+	TempoEntity getOneByIdTempo(Long idTempo);
 
 }

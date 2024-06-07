@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `horario` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `horario`;
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
 -- Host: localhost    Database: horario
@@ -210,7 +208,7 @@ CREATE TABLE `docente_disciplina` (
 
 LOCK TABLES `docente_disciplina` WRITE;
 /*!40000 ALTER TABLE `docente_disciplina` DISABLE KEYS */;
-INSERT INTO `docente_disciplina` VALUES (10,1),(10,8),(10,10),(10,15);
+INSERT INTO `docente_disciplina` VALUES (10,1),(10,14);
 /*!40000 ALTER TABLE `docente_disciplina` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -227,6 +225,7 @@ CREATE TABLE `docente_tempo` (
   `prioridade` bigint NOT NULL,
   PRIMARY KEY (`docente_id`,`tempo_id`,`prioridade`),
   KEY `fk_docente_tempo_tempo_idx` (`tempo_id`),
+  KEY `fk_docente_tempo_prioridade_idx` (`prioridade`),
   CONSTRAINT `fk_docente_tempo_docente` FOREIGN KEY (`docente_id`) REFERENCES `docente` (`id_docente`),
   CONSTRAINT `fk_docente_tempo_tempo` FOREIGN KEY (`tempo_id`) REFERENCES `tempo` (`id_tempo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Essa entidade associativa forma a disponibilidade em relação ao tempos de aula de um docente.';
@@ -238,7 +237,7 @@ CREATE TABLE `docente_tempo` (
 
 LOCK TABLES `docente_tempo` WRITE;
 /*!40000 ALTER TABLE `docente_tempo` DISABLE KEYS */;
-INSERT INTO `docente_tempo` VALUES (10,1,1),(11,1,1),(11,1,2),(10,2,2),(11,3,3);
+INSERT INTO `docente_tempo` VALUES (12,1,1),(12,2,2),(10,3,3),(10,5,1);
 /*!40000 ALTER TABLE `docente_tempo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -732,4 +731,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-28 15:17:33
+-- Dump completed on 2024-06-07 17:32:39

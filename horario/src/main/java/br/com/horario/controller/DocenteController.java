@@ -15,9 +15,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.horario.entity.DisciplinaEntity;
 import br.com.horario.entity.DocenteEntity;
+import br.com.horario.entity.DocenteTempoEntity;
+import br.com.horario.entity.DocenteTempoKey;
 import br.com.horario.entity.TempoEntity;
 import br.com.horario.service.DisciplinaService;
 import br.com.horario.service.DocenteService;
+import br.com.horario.service.DocenteTempoService;
 import br.com.horario.service.SetorService;
 import br.com.horario.service.TempoService;
 import jakarta.servlet.http.HttpSession;
@@ -38,14 +41,11 @@ public class DocenteController {
 	@Autowired
 	private DisciplinaService disciplinaService;	
 	
+	@Autowired
+	private DocenteTempoService docenteTempoService;	
+	
 	private String loginUsuarioLogado;
-	
-	
 
-	
-	
-
-	
 		
 	@GetMapping("/docente") //nome que eu quiser colocar 
 	public String docente(ModelMap model)
@@ -149,38 +149,18 @@ public class DocenteController {
 				return mv;
 		
 	}
-	
-	//começa disponibilidade
-	/*@GetMapping("/disponibilidade") 
-	public String disponibilidade(ModelMap model,HttpSession session) throws Exception
-	{
-	
-		DocenteEntity docente = new DocenteEntity();
-		//recupera o usuario logado na sessão
-        loginUsuarioLogado = (String)session.getAttribute("loginUsuarioLogado");   
-		docente = docenteService.getOneByCpf(loginUsuarioLogado);
-		model.addAttribute("docente", docente);
-	
-		List<TempoEntity> ListaTempos = tempoService.findAll();
-		model.addAttribute("tempos",ListaTempos);
-		
-		return "disponibilidade"; 
-	}*/
 	@GetMapping("/disponibilidade") 
 	public ModelAndView disponibilidade(ModelMap model,HttpSession session) throws Exception
 	{
 	
 		ModelAndView mv = new ModelAndView("disponibilidade");
-		DocenteEntity docente = new DocenteEntity();
-		//recupera o usuario logado na sessão
-        loginUsuarioLogado = (String)session.getAttribute("loginUsuarioLogado");   
-		docente = docenteService.getOneByCpf(loginUsuarioLogado);
-		//model.addAttribute("docente", docente);
-		mv.addObject("docente", docente);
+
+		mv.addObject("docente", docenteLogado(session));
+		mv.addObject("docentetempos", docenteLogado(session).getPrioridades());
 	
 		List<TempoEntity> ListaTempos = tempoService.findAll();
-		//model.addAttribute("tempos",ListaTempos);
 		mv.addObject("listatempos", ListaTempos);
+		
 		
 		return mv; 
 	}
@@ -189,6 +169,9 @@ public class DocenteController {
     public ModelAndView salvarDispobinilidade(
     		ModelMap model,    		
     		@ModelAttribute("docente") DocenteEntity docente,
+    		@ModelAttribute("docentetempo") DocenteTempoEntity docenteTempo,   
+    		@ModelAttribute("tempo")  TempoEntity tempo,
+    		
     		HttpSession session,
     		RedirectAttributes atributes) throws Exception 
 	{ 			
@@ -197,15 +180,34 @@ public class DocenteController {
 		     
 		        //indica o redirecionamento
 				ModelAndView mv = new ModelAndView("redirect:/disponibilidade");
+				DocenteTempoKey dtk = new DocenteTempoKey();
+				dtk.setDocenteId(docente.getIdDocente());
+				dtk.setTempoId(tempo.getIdTempo());
 				
-				//instancia um novo objeto docente
-				DocenteEntity d = new DocenteEntity();
-				d = docenteService.getOneByCpf(loginUsuarioLogado);
-				d.setTempos(docente.getTempos());			;
-			
-				atributes.addFlashAttribute("mensagem",docenteService.saveOrUpdate(d));
+				docenteTempo.setId(dtk);				
+				
+				atributes.addFlashAttribute("mensagem",docenteTempoService.save(docenteTempo));
 				return mv;
 		
+	}
+	//Começa Exclusão
+	@GetMapping("/excluir_disponibilidade/{idTempo}")
+	public ModelAndView excluirDisponibilidade(ModelMap model,@PathVariable("idTempo") Long idTempo,RedirectAttributes atributes,HttpSession session) throws Exception
+	{
+		ModelAndView mv = new ModelAndView("redirect:/disponibilidade");
+		model.addAttribute("mensagem", docenteTempoService.deleteByDocenteAndTempo(docenteLogado(session), tempoService.getOneByIdTempo(idTempo)));
+		
+		return mv;
+	
+	}
+	public DocenteEntity docenteLogado(HttpSession session) throws Exception
+	{
+		DocenteEntity docente = new DocenteEntity();
+		//recupera o usuario logado na sessão
+        loginUsuarioLogado = (String)session.getAttribute("loginUsuarioLogado");   
+		docente = docenteService.getOneByCpf(loginUsuarioLogado);
+		
+		return docente;
 	}
 	
 	

@@ -59,7 +59,15 @@ public class DocenteEntity implements Serializable {
     inverseJoinColumns={@JoinColumn(name="tempo_id", referencedColumnName = "id_tempo")})
 	private List<TempoEntity> tempos;	
 	
+	@OneToMany(mappedBy = "docente", fetch = FetchType.EAGER)
+	List<DocenteTempoEntity> prioridades;	
 
+	public List<DocenteTempoEntity> getPrioridades() {
+		return prioridades;
+	}
+	public void setPrioridades(List<DocenteTempoEntity> prioridades) {
+		this.prioridades = prioridades;
+	}
 	public List<TempoEntity> getTempos() {
 		return tempos;
 	}
@@ -73,23 +81,6 @@ public class DocenteEntity implements Serializable {
 	}
 	public void setDisciplinas(List<DisciplinaEntity> disciplinas) {
 		this.disciplinas = disciplinas;
-	}
-
-	@OneToMany(mappedBy = "docente",cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-	List<DocenteTempo> prioridades;	
-	
-
-	
-	
-	
-	
-	
-
-	public List<DocenteTempo> getPrioridades() {
-		return prioridades;
-	}
-	public void setPrioridades(List<DocenteTempo> prioridades) {
-		this.prioridades = prioridades;
 	}
 	public SetorEntity getSetor() {
 		return setor;
@@ -149,21 +140,7 @@ public class DocenteEntity implements Serializable {
 	
 
 
-	public DocenteEntity(Long idDocente, String nome, String sobrenome, int tempo, String cpf, String email,
-			SetorEntity setor, List<DisciplinaEntity> disciplinas, List<TempoEntity> tempos,
-			List<DocenteTempo> prioridades) {
-		super();
-		this.idDocente = idDocente;
-		this.nome = nome;
-		this.sobrenome = sobrenome;
-		this.tempo = tempo;
-		this.cpf = cpf;
-		this.email = email;
-		this.setor = setor;
-		this.disciplinas = disciplinas;
-		this.tempos = tempos;
-		this.prioridades = prioridades;
-	}
+
 	@Override
 	public String toString() {
 		return "DocenteEntity [idDocente=" + idDocente + ", nome=" + nome + ", sobrenome=" + sobrenome + ", tempo="

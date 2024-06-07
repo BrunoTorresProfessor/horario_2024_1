@@ -16,8 +16,15 @@ public class TempoServiceImpl implements TempoService {
 
 	@Override
 	public List<TempoEntity> findAll() {			
-		
+			
 		return tempoRepository.findAll();
+	}
+
+	@Override
+	public TempoEntity getOneByIdTempo(Long idTempo) {
+	
+		
+		return tempoRepository.getOneByIdTempo(idTempo);
 	}
 
 }

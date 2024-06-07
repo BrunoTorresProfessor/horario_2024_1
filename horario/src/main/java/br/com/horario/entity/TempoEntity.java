@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -42,6 +42,15 @@ public class TempoEntity implements Serializable {
 	
 	@ManyToMany(mappedBy = "tempos")
     private List<DocenteEntity> docentes;
+	
+	public TempoEntity(List<DocenteTempoEntity> prioridades) {
+		super();
+		this.prioridades = prioridades;
+	}
+	public TempoEntity() {
+		super();
+	}
+
 
 
 	public List<DocenteEntity> getDocentes() {
@@ -52,15 +61,17 @@ public class TempoEntity implements Serializable {
 		this.docentes = docentes;
 	}
 	
-	@OneToMany(mappedBy = "tempo",cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-	List<DocenteTempo> prioridades;
+	@OneToMany(mappedBy = "tempo",fetch = FetchType.EAGER)
+	List<DocenteTempoEntity> prioridades;
 
 
-	public List<DocenteTempo> getPrioridades() {
+
+
+	public List<DocenteTempoEntity> getPrioridades() {
 		return prioridades;
 	}
 
-	public void setPrioridades(List<DocenteTempo> prioridades) {
+	public void setPrioridades(List<DocenteTempoEntity> prioridades) {
 		this.prioridades = prioridades;
 	}
 

@@ -18,8 +18,7 @@ public class DocenteTempoKey implements Serializable  {
 	@Column(name = "tempo_id")
     Long tempoId;
 	
-	
-	
+
 	public Long getDocenteId() {
 		return docenteId;
 	}

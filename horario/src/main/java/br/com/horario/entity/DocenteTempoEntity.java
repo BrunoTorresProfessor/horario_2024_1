@@ -9,19 +9,16 @@ import jakarta.persistence.JoinColumn;
 
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
+import jakarta.persistence.Table;
 
 @Entity
-public class DocenteTempo {
+@Table(name = "docente_tempo" , schema = "horario")
+public class DocenteTempoEntity {
 	
 	@EmbeddedId
 	DocenteTempoKey id;
 
-	public DocenteTempo(DocenteTempoKey id, DocenteEntity docente, TempoEntity tempo) {
-		super();
-		this.id = id;
-		this.docente = docente;
-		this.tempo = tempo;
-	}
+
 
 	//MapsId significa que vinculamos esses campos a uma parte da chave e eles são as 
 	//chaves estrangeiras de um relacionamento muitos para um.
@@ -38,9 +35,6 @@ public class DocenteTempo {
 	
 	@Column(name = "prioridade")
 	private Long prioridade;	
-	
-	
-	
 	
 
 	public Long getPrioridade() {
@@ -95,13 +89,13 @@ public class DocenteTempo {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		DocenteTempo other = (DocenteTempo) obj;
+		DocenteTempoEntity other = (DocenteTempoEntity) obj;
 		return Objects.equals(id, other.id);
 	}
 
-	public DocenteTempo() {
-		super();
-	}
+
+	
+	
 	
 
 

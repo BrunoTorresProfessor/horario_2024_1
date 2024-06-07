@@ -7,5 +7,7 @@ import br.com.horario.entity.TempoEntity;
 public interface TempoService {
 	
 	List<TempoEntity> findAll();
+	
+	TempoEntity getOneByIdTempo(Long idTempo);
 
 }
